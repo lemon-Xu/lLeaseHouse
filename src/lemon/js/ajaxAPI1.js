@@ -1,16 +1,18 @@
 import axios from 'axios'
-const loginAPI1 = (usersName, usersPass)=>{
+const loginAPI1 = (usersName, usersPass, resFun, errFun)=>{
     axios.get('/api1/users', {
         params: {
-          "usersName": usersName,
+          "usersAccount": usersName,
           "usersPass": usersPass
         }
       })
         .then(function (res) {
-          console.log(res)
+          if(resFun != null && resFun != undefined)
+            resFun(res)
         })
         .catch(function (err) {
-          console.log(err)
+          if(errFun != null && errFun != undefined)
+            errFun(err)
         })
 }
 

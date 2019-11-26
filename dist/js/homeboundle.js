@@ -3711,7 +3711,7 @@ eval("var content = __webpack_require__(/*! !../../../node_modules/_css-loader@3
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.loginAPI1 = undefined;\n\nvar _axios = __webpack_require__(/*! axios */ \"./node_modules/_axios@0.19.0@axios/index.js\");\n\nvar _axios2 = _interopRequireDefault(_axios);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar loginAPI1 = function loginAPI1(usersName, usersPass) {\n  _axios2.default.get('/api1/users', {\n    params: {\n      \"usersName\": usersName,\n      \"usersPass\": usersPass\n    }\n  }).then(function (res) {\n    console.log(res);\n  }).catch(function (err) {\n    console.log(err);\n  });\n};\n\nexports.loginAPI1 = loginAPI1;\n\n//# sourceURL=webpack:///./src/lemon/js/ajaxAPI1.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.loginAPI1 = undefined;\n\nvar _axios = __webpack_require__(/*! axios */ \"./node_modules/_axios@0.19.0@axios/index.js\");\n\nvar _axios2 = _interopRequireDefault(_axios);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nvar loginAPI1 = function loginAPI1(usersName, usersPass, resFun, errFun) {\n  _axios2.default.get('/api1/users', {\n    params: {\n      \"usersAccount\": usersName,\n      \"usersPass\": usersPass\n    }\n  }).then(function (res) {\n    if (resFun != null && resFun != undefined) resFun(res);\n  }).catch(function (err) {\n    if (errFun != null && errFun != undefined) errFun(err);\n  });\n};\n\nexports.loginAPI1 = loginAPI1;\n\n//# sourceURL=webpack:///./src/lemon/js/ajaxAPI1.js?");
 
 /***/ }),
 

@@ -1,20 +1,26 @@
 var express = require('express');
 var router = express.Router();
- 
-router.get('/:name', function(req, res) {
-  
-});
- 
+const session = require('../sqlSessionFactoryBuilder.js')
+
 router.get('',function(req, res,) {
   console.log('---get')
   console.log(req.query)
-  var ret = {
-    "usersName": req.query.usersName,
-    "usersPass": req.query.usersPass,
-    "usersRank": req.query.usersRank
+  var inf = {
+    "Users_Account": req.query.usersAccount,
+    "Users_PassWord": req.query.usersPass,
   }
+  var sql = session.getSQL('selectUsers', inf)
+  
+  console.log(sql)
+  session.query(sql, (err, rows, fields)=>{
+    for(var a in rows){
+      console.log(rows[a])
+    }
+    res
+  })
 
-  res.end(JSON.stringify(ret))
+
+  res.end('ok')
 })
 
 router.post('',function(req, res,) {

@@ -815,23 +815,39 @@ class SyntacticAnalyzer{
     }
 }
 
+var session
+var mapperSQL
+
+var first = true
+if(first){
+    var sqlSession = new SqlSessionFactoryBuilder()
+    sqlSession.getResource();
+    session = sqlSession.build();
+
+    mapperSQL = new MapperSQLParser()
+    mapperSQL.getResource()
+    mapperSQL.build()
+    first = false
+} 
+
 function query(sql, fun){
     session.query(sql, function(err, rows, fields){
         fun(err,rows,fields)
     })
 }
 
-var a = 1
+function getRetSQL(id, parameter){
+    if(id == null || id == undefined || parameter == null || parameter == undefined)
+        throw 'id和parameter不能为null或undefined'
+    return mapperSQL.getRetSQL(id, parameter)
+}
+
+exports.getSQL = getRetSQL
+exports.query = query
+exports.a = console.log('a')
+
+var a = 0
 if(a == 1){
-    
-    var sqlSession = new SqlSessionFactoryBuilder()
-    sqlSession.getResource();
-    var session = sqlSession.build();
-    // console.log(sqlSession.configToSting())
-    
-    var mapperSQL = new MapperSQLParser()
-    mapperSQL.getResource()
-    mapperSQL.build()
     // console.log(mapperSQL.mapperSQLToSting())
     var b = mapperSQL.getRetSQL("selectUsers",{
         "Users_IsBan": 0,
