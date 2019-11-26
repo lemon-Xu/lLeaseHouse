@@ -92,7 +92,7 @@ class Login extends React.Component {
   login() {
     console.log("usersName:" + this.state.usersName)
     console.log("usersPass:" + this.state.usersPass)
-    loginAPI1(this.state.usersName, this.state.uersPass)
+    loginAPI1(this.state.usersName, this.state.usersPass)
   }
 
   render() {

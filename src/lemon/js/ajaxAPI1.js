@@ -1,6 +1,6 @@
 import axios from 'axios'
 const loginAPI1 = (usersName, usersPass)=>{
-    axios.get('/api1_users', {
+    axios.get('/api1/users', {
         params: {
           "usersName": usersName,
           "usersPass": usersPass
