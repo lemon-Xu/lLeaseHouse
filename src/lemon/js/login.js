@@ -92,9 +92,17 @@ class Login extends React.Component {
   login() {
     console.log("usersName:" + this.state.usersName)
     console.log("usersPass:" + this.state.usersPass)
-    loginAPI1(this.state.usersName, this.state.usersPass, (res)=>{
-      console.log(res)
-    })
+    loginAPI1((res)=>{
+      console.log(res.data)
+      if(res.data.length != 0)
+        window.location.href = '/dist/home.html'
+      else
+        alert('错误')
+    }), ()=>{},
+    {
+      "usersAccount": this.state.usersName,
+      "usersPass": this.state.usersPass
+    }
   }
 
   render() {

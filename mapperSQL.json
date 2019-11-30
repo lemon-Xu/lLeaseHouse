@@ -49,11 +49,49 @@
                 "logic": "Users_Name != null",
                 "sql": "#{Users_Name}"
             }
-        ],
-        "where": [
+        ]
+    },
+    "updateUsers":{
+        "type": "update",
+        "sql": " UPDATE Users SET 7",
+        "set": [
             {
                 "logic": "Users_IsBan != null",
-                "sql": "AND Users_IsBan = #{Users_IsBan}"
+                "sql": "#{Users_IsBan}"
+            },
+            {
+                "logic": "Users_Rank != null",
+                "sql": "#{Users_Rank}"
+            },
+            {
+                "logic": "Users_PassWord != null",
+                "sql": "MD5(#{Users_PassWord})"
+            },
+            {
+                "logic": "Users_Account != null",
+                "sql": "#{Users_Account}"
+            },
+            {
+                "logic": "Users_Name != null",
+                "sql": "#{Users_Name}"
+            }
+        ]
+    },
+    "selectHouse": {
+        "type": "select",
+        "sql": " SELECT * FROM house, landlor, houseLeaseInf ",
+        "where": [
+            {
+                "logic": "1 == 1",
+                "sql": "AND house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"
+            },
+            {
+                "logic": "House_IsBan != null",
+                "sql": "AND House_IsBan = #{House_IsBan}"
+            },
+            {
+                "logic": "HouseLeaseInf_IsBan != null",
+                "sql": "AND HouseLeaseInf_IsBan = #{HouseLeaseInf_IsBan}"
             }
         ]
     }

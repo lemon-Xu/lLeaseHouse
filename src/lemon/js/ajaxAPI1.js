@@ -1,10 +1,7 @@
 import axios from 'axios'
-const loginAPI1 = (usersName, usersPass, resFun, errFun)=>{
+const loginAPI1 = (resFun, errFun, params)=>{
     axios.get('/api1/users', {
-        params: {
-          "usersAccount": usersName,
-          "usersPass": usersPass
-        }
+        "params": params
       })
         .then(function (res) {
           if(resFun != null && resFun != undefined)
@@ -16,4 +13,19 @@ const loginAPI1 = (usersName, usersPass, resFun, errFun)=>{
         })
 }
 
-export {loginAPI1}
+const getHouseInfAPI1 = (resFun, errFun, params)=>{
+  axios.get('/api1/HouseInf', {
+    "params": params
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
+}
+
+
+export {loginAPI1, getHouseInfAPI1}

@@ -151,6 +151,7 @@ class SqlNodeParser{
         this.sql = sqlNode['sql']
         this.where = null
         this.set = null
+        this.end = null
         this.retSQL = ''
         this.id = id
         this.type = sqlNode['type']
@@ -159,6 +160,9 @@ class SqlNodeParser{
             this.set = new setNodeParser(sqlNode['set'])
         if(sqlNode['where'] != null && this.type != 'insert into')
             this.where = new whereNodeParser(sqlNode['where'])
+        // if(sqlNode['end'] != null)
+        //     this.end = new whereNodeParser(sqlNode['end'])
+
         this.retSQL = "";
         // console.log(sqlNode['where'])
     }
@@ -174,11 +178,14 @@ class SqlNodeParser{
             this.set.build()
         if(this.where != null)
             this.where.build()
+        // if(this.end != null)
+        //     this.end.build()
         // if(this.foreach != null)
         //     this.foreach.build()
     }
 
     getRetSQL(parameter){
+        let retSQL = ''
         // if(this.if != null)
         //     this.retSQL += this.if.getRetSQL(parameter)
         // if(this.when != null)
@@ -186,13 +193,15 @@ class SqlNodeParser{
         // if(this.otherwise != null)
         //     this.retSQL += this.otherwise.getRetSQL(parameter)
         if(this.set != null)
-            this.retSQL += this.set.getRetSQL(parameter)
+            retSQL += this.set.getRetSQL(parameter)
         if(this.where != null)
-            this.retSQL += this.where.getRetSQL(parameter)
+            retSQL += this.where.getRetSQL(parameter)
+        // if(this.end != null)
+        //     this.retSQL += this.end.getRetSQL(parameter)
         // if(this.foreach != null)
         //     this.retSQL += this.foreach.getRetSQL(parameter)
 
-        let ret = this.sql + this.retSQL
+        let ret = this.sql + retSQL
         this.logger.debug({
             "id": this.id,
             "parameter": parameter,
@@ -212,7 +221,7 @@ class nodeParser{
         if(node == undefined){
             return null
         }
-        for(var a in node){
+        for(let a in node){
             this.logic.push(node[a]['logic'])
             this.sql.push(node[a]['sql'])
         }
@@ -221,7 +230,7 @@ class nodeParser{
     }
 
     build(){
-        var lexer = new Lexer()
+        let lexer = new Lexer()
         for(let a in this.logic){
             if(this.logic[a] == undefined)
                 continue
@@ -232,9 +241,9 @@ class nodeParser{
     }
 
     getRetSQL(parameter){
-        var sqlArray = new Array()
-        var parameterNameArray = new Array() // 保存#{...}的真实名称
-        var parameterValueArray = new Array() // 保存#{...}对应的value值
+        let sqlArray = new Array()
+        let parameterNameArray = new Array() // 保存#{...}的真实名称
+        let parameterValueArray = new Array() // 保存#{...}对应的value值
         // console.log(this.logic)
         for(var a in this.logic){
             var isTrue = this.getBoolean(this.tokenSQL[a], parameter) // 判断logic节点的逻辑表达式
@@ -246,20 +255,22 @@ class nodeParser{
     }
 
     getBoolean(tokenArray, heap){
-        var syntacticAnalyzer = new SyntacticAnalyzer()
+        let syntacticAnalyzer = new SyntacticAnalyzer()
         syntacticAnalyzer.setTokenArray(tokenArray)
-        var ret = syntacticAnalyzer.scanner(heap)
+        let ret = syntacticAnalyzer.scanner(heap)
         // console.log(ret)
         return ret
     }
 
     getRealSQL(sql, parameter, parameterNameArray, parameterValueArray){
-        var a = /#{[a-zA-Z_][a-zA-Z_0-9]*}/g
-        var retSQL
-        var parameterArray = sql.match(a) 
-        for(var a in parameterArray){
+        let a = /#{[a-zA-Z_][a-zA-Z_0-9]*}/g
+        let retSQL
+        let parameterArray = sql.match(a) 
+        if(parameterArray == null)
+            return sql
+        for(let a in parameterArray){
             var str = ''
-            for(var b in parameterArray[a]){ // 取真正的parameterName
+            for(let b in parameterArray[a]){ // 取真正的parameterName
                 if(b<2 || b > parameterArray[a].length - 2)
                     continue
                 str += parameterArray[a][b]
@@ -275,14 +286,13 @@ class nodeParser{
             parameterValueArray.push(para)
 
             retSQL = sql.replace(parameterArray[a], para)
-
         }
         return retSQL == undefined ? '' : retSQL
 
     }
 
     altRealSQL(sqlArray, parameterNameArray, parameterValueArray){
-        var c = ''
+        let c = ''
         for(var b in sqlArray){
             c += ' ' + sqlArray[b]
         }
@@ -319,7 +329,6 @@ class setNodeParser extends nodeParser{
         if(sqlArray.length == 0)
             return ' '
         c.push('(')
-        console.log(parameterNameArray)
         for(var a in parameterNameArray){
             c.push(parameterNameArray[a])
             c.push(',')
@@ -359,6 +368,12 @@ class whereNodeParser extends nodeParser{
 }
 
 class foreachNodeParser extends nodeParser{
+    constructor(node){
+        super(node)
+    }
+}
+
+class endNodeParser extends nodeParser{
     constructor(node){
         super(node)
     }
@@ -855,9 +870,8 @@ if(a == 1){
         "Users_Account": "root",
         "Users_PassWord": 1234
     })
-    // var b = mapperSQL.getRetSQL("selectUsers",{})
+
     console.log(b)
-    
     query(b, function(err, rows, fields){
         console.log('err:')
         console.log(err)
@@ -877,6 +891,23 @@ if(a == 1){
         console.log('rows')
         console.log(rows)
     })
+}
+
+if(a == 3){
+    var b = mapperSQL.getRetSQL("selectUsers",{
+        "Users_IsBan": 0,
+        "Users_Name": "管理员1",
+        "Users_Account": "root",
+        "Users_PassWord": 1234
+    })
+
+    console.log(b)
+    
+    b = mapperSQL.getRetSQL("selectUsers",{
+        
+    })
+    // var b = mapperSQL.getRetSQL("selectUsers",{})
+    console.log(b)
 }
 
 

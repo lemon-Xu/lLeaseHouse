@@ -1,119 +1,85 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'antd';
-import styleLemon from '../css/login.css'
-import {loginAPI1} from './ajaxAPI1.js'
+import styleLemon from '../css/home.css'
+import {getHouseInfAPI1} from './ajaxAPI1.js'
 
-class Login_p extends React.Component{
+getHouseInfAPI1((res)=>{
+  console.log(res.data)
+},
+()=>{},
+{}
+)
+
+class HouseInf extends React.Component{
+  constructor(props){
+    super(props)
+  }
 
   render(){
-    var kids = React.Children.map(this.props.children, child => {
-      return child
-    })
-
-    return <p className={styleLemon.login_p_a}>
-       {kids}
-    </p>
+    return (
+    <div className={styleLemon.houseInf}>
+      <img src={this.props.imgSrc} alt={this.props.altText}/>
+      <p className={styleLemon.overflow}>{this.props.pTitle}</p>
+      <div>
+        <span>{this.props.leftSpan}</span>
+        <span>{this.props.rightSpan}</span>
+      </div>
+    </div>
+    )
   } 
 }
 
-class Login_button extends React.Component{
 
-  
-
-  render(){
-    var kids = React.Children.map(this.props.children, child => {
-      return child
-    })
-
-    return <Button type="primary" className={styleLemon.login_button_input} onClick={this.props.onClick}>
-      {kids}
-    </Button>
-  }
-}
-
-class Login_inputTest extends React.Component{
-
-  render(){
-    var kids = React.Children.map(this.props.children, child => {
-      return child
-    })
-
-    return <input type="text" className={styleLemon.login_button_input} value={this.props.value} onChange={this.props.onChange}>
-      {kids}
-    </input>
-  }
-}
-
-class Login_inputPassword extends React.Component{
-
-  render(){
-    var kids = React.Children.map(this.props.children, child => {
-      return child
-    })
-
-    return <input type="password" className={styleLemon.login_button_input} value={this.props.value} onChange={this.props.onChange}>
-      {kids}
-    </input>
-  }
-}
-
-class Board extends React.Component{
-  render(){
-    var kids = React.Children.map(this.props.children, child => {
-      return child
-    })
-
-    return <div className={styleLemon.board}>
-      {kids}
-    </div>
-  }
-}
-
-
-
-class Login extends React.Component {
-  constructor(props) {
+class HouseInfList extends React.Component  {
+  constructor(props){
     super(props)
-    this.state = { usersName: '', usersPass: '' }
-    this.usersNameChange = this.usersNameChange.bind(this)
-    this.usersPassChange = this.usersPassChange.bind(this)
-    this.login = this.login.bind(this)
+    this.imgSrc = null;
+    this.altText = null;
+    this.pTitle = null;
+    this.leftSpan = null;
+    this.rightSpan = null;
+    this.dom = <div></div>
   }
 
-  usersNameChange(event) {
-    this.setState({ usersName: event.target.value })
+  componentDidMount(){
+    this.getHouseInf()
   }
 
-  usersPassChange(event) {
-    this.setState({ usersPass: event.target.value })
+  getHouseInf(){
+    let inf = null;
+    getHouseInfAPI1((res)=>{
+      inf = res.data
+      console.log(inf)
+      this.dom = this.setInfList(inf)
+      console.log(this.dom)
+      this.render()
+    })
   }
 
-  login() {
-    console.log("usersName:" + this.state.usersName)
-    console.log("usersPass:" + this.state.usersPass)
-    loginAPI1(this.state.usersName, this.state.uersPass)
+  setComponentProps(imgSrc, altText, pTitle, leftSpan, rightSpan){
+    return  <HouseInf  imgSrc={imgSrc}  altText={altText}  pTitle={pTitle}  leftSpan={leftSpan} rightSpan={rightSpan} />
   }
 
-  render() {
-    return <div id='loginBody'>
-      <Board>
-        <h2>Sign in to HouseLease</h2>
-        <Login_p><b>Username</b></Login_p>
-        <Login_inputTest value={this.state.usersName} onChange={this.usersNameChange}></Login_inputTest>
-        <p><b>Password</b><a className={styleLemon.floatRight}>Forgin password?</a></p>
-        <Login_inputPassword value={this.state.usersPass}  onChange={this.usersPassChange}></Login_inputPassword>
-        <br></br>
-        <Login_button onClick={this.login}>Sign in</Login_button>
-      </Board>
-      <Board>
-         <a>new to HouseLease? create HouseLease account</a>
-      </Board>
-    </div>
+  setInfList(inf){
+    let ret = new Array()
+    for(let a in inf){
+      ret.pop(this.setComponentProps(inf[a].imgSrc, '', inf[a].House_Profile, inf[a].leftSpan, inf[a].rightSpan))
+    }
+    return ret
   }
+
+  render(){
+    return(
+      this.dom
+    )
+      
+  }
+
 }
 
 ReactDOM.render(
-  <Login />,
-  document.getElementById('home')
+  <HouseInfList />,
+  document.getElementById('HouseInfList')
 )
+
