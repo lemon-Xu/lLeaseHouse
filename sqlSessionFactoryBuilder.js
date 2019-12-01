@@ -149,13 +149,16 @@ class MapperSQLParser{
 class SqlNodeParser{
     constructor(sqlNode, id){
         this.sql = sqlNode['sql']
-        this.where = null
         this.set = null
+        this.where = null
+        this.values = null
         this.end = null
         this.retSQL = ''
         this.id = id
         this.type = sqlNode['type']
         this.logger = new Logger(id)
+        if(sqlNode['values'] != null)
+            this.values = new ValuesNodeParser(sqlNode['values'])
         if(sqlNode['set'] != null)
             this.set = new setNodeParser(sqlNode['set'])
         if(sqlNode['where'] != null && this.type != 'insert into')
@@ -174,6 +177,8 @@ class SqlNodeParser{
         //     this.when.build()
         // if(this.otherwise != null)
         //     this.otherwise.build()
+        if(this.values != null)
+            this.values.build()
         if(this.set != null)
             this.set.build()
         if(this.where != null)
@@ -192,6 +197,8 @@ class SqlNodeParser{
         //     this.retSQL += this.when.getRetSQL(parameter)
         // if(this.otherwise != null)
         //     this.retSQL += this.otherwise.getRetSQL(parameter)
+        if(this.values != null)
+            retSQL += this.values.getRetSQL(parameter)
         if(this.set != null)
             retSQL += this.set.getRetSQL(parameter)
         if(this.where != null)
@@ -320,6 +327,23 @@ class otherwiseNodeParser extends nodeParser{
 
 
 class setNodeParser extends nodeParser{
+    constructor(node){
+        super(node)
+    }
+
+    altRealSQL(sqlArray, parameterNameArray, parameterValueArray){
+        let b = sqlArray[sqlArray.length - 1]
+        let c = b.replace(',', ' ')
+        sqlArray[sqlArray.length - 1] = c
+        let ret = ''
+        for(let a in sqlArray){
+            ret += sqlArray[a]
+        }
+        return ret
+    }
+}
+
+class ValuesNodeParser extends nodeParser{
     constructor(node){
         super(node)
     }
@@ -861,7 +885,26 @@ exports.getSQL = getRetSQL
 exports.query = query
 exports.a = console.log('a')
 
-var a = 0
+var a = 4
+
+if(a == 4){
+    var b = mapperSQL.getRetSQL("updateUsers",{
+        "Users_IsBan": 0,
+        "Users_Name": "管理员4",
+        "Users_Account": "x123456",
+        "Users_PassWord": 123456,
+        "Users_ID": 6
+    })
+
+    console.log(b)
+    query(b, function(err, rows, fields){
+        console.log('err:')
+        console.log(err)
+        console.log('rows')
+        console.log(rows)
+    })
+}
+
 if(a == 1){
     // console.log(mapperSQL.mapperSQLToSting())
     var b = mapperSQL.getRetSQL("selectUsers",{

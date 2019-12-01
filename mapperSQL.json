@@ -28,7 +28,7 @@
     "insertUsers":{
         "type": "insert into",
         "sql": " INSERT INTO Users",
-        "set": [
+        "values": [
             {
                 "logic": "Users_IsBan != null",
                 "sql": "#{Users_IsBan}"
@@ -53,27 +53,33 @@
     },
     "updateUsers":{
         "type": "update",
-        "sql": " UPDATE Users SET 7",
+        "sql": " UPDATE Users SET ",
         "set": [
             {
                 "logic": "Users_IsBan != null",
-                "sql": "#{Users_IsBan}"
+                "sql": "Users_IsBan = #{Users_IsBan} ,"
             },
             {
                 "logic": "Users_Rank != null",
-                "sql": "#{Users_Rank}"
+                "sql": "Users_Rank = #{Users_Rank} ,"
             },
             {
                 "logic": "Users_PassWord != null",
-                "sql": "MD5(#{Users_PassWord})"
+                "sql": "Users_PassWord = MD5(#{Users_PassWord}) ,"
             },
             {
                 "logic": "Users_Account != null",
-                "sql": "#{Users_Account}"
+                "sql": "Users_Account = #{Users_Account} ,"
             },
             {
                 "logic": "Users_Name != null",
-                "sql": "#{Users_Name}"
+                "sql": "Users_Name = #{Users_Name} ,"
+            }
+        ],
+        "where": [
+            {
+                "logic": "Users_ID != null",
+                "sql": "AND Users_ID = #{Users_ID}"
             }
         ]
     },
