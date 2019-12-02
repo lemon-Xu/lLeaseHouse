@@ -15,7 +15,8 @@ module.exports = {
     // 配置入口文件
     entry: {
         login: './src/lemon/js/login.js',
-        home: './src/lemon/js/home.js'
+        home: './src/lemon/js/home.js',
+        index: './src/lemon/js/index.js'
         // yeyu: './src/yeyu/js/yeyu.js',
         // firia: './src/firia/js/firia.js'
     },
@@ -92,6 +93,15 @@ module.exports = {
             template: path.resolve(__dirname,'src','lemon','home.html'),
             filename: path.resolve(__dirname,'dist','home.html'),
             chunks:['home'],
+            hash:true,//防止缓存
+            minify:{
+                removeAttributeQuotes:true//压缩 去掉引号
+            }
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname,'src','lemon','index.html'),
+            filename: path.resolve(__dirname,'dist','index.html'),
+            chunks:['index'],
             hash:true,//防止缓存
             minify:{
                 removeAttributeQuotes:true//压缩 去掉引号

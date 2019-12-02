@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'antd';
 import styleLemon from '../css/login.css'
-import {loginAPI1} from './ajaxAPI1.js'
+import {loginAPI1, usersRegisterAPI1} from './ajaxAPI1.js'
 
 class Login_p extends React.Component{
 
@@ -123,7 +123,82 @@ class Login extends React.Component {
   }
 }
 
+
+class Register extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      usersName: '',
+      usersPass: '',
+    }
+    this.usersNameChange = this.usersNameChange.bind(this)
+    this.usersPassChange = this.usersPassChange.bind(this)
+    this.register = this.register.bind(this)
+  }
+
+  usersNameChange(event){
+    this.setState({"usersName": event.target.value})
+  }
+
+  usersPassChange(event){
+    this.setState({"usersPass": event.target.value})
+  }
+
+  register(event){
+    if(this.state.usersPass.length < 8 || this.state.usersPass.length >15) {
+      alert("Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.")
+      return
+    }
+    let para = {
+      "usersAccount": this.state.usersName,
+      "usersPass": this.state.usersPass,
+      "usersRank": '游客'
+    }
+    usersRegisterAPI1(
+      (res)=>{
+        console.log(res.data)
+        if(res.data.result){
+
+        } else {
+          alert(res.data.mess)
+        }
+      },
+      ()=>{},
+      para)
+    console.log(para)
+  }
+
+  render(){
+    return(
+      
+      <div id='registerBody'>
+        <Board>
+          <Login_p><b>Username</b></Login_p>
+          <Login_inputTest value={this.state.usersName} onChange={this.usersNameChange}></Login_inputTest>
+          <b>Password</b>
+          <Login_inputPassword value={this.state.usersPass}  onChange={this.usersPassChange}></Login_inputPassword>
+          <Login_p>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</Login_p>
+          <Login_button onClick={this.register}>Sign up for HouseLease</Login_button>
+        </Board>
+     </div>
+
+
+    )
+  }
+}
+
 ReactDOM.render(
   <Login />,
   document.getElementById('login')
 )
+
+ReactDOM.render(
+  <Register />,
+  document.getElementById('register')
+)
+
+
+
+
+
+export {Login}

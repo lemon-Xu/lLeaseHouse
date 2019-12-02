@@ -83,3 +83,4 @@ ReactDOM.render(
   document.getElementById('HouseInfList')
 )
 
+export{Home}

@@ -885,7 +885,7 @@ exports.getSQL = getRetSQL
 exports.query = query
 exports.a = console.log('a')
 
-var a = 4
+var a = -1
 
 if(a == 4){
     var b = mapperSQL.getRetSQL("updateUsers",{

@@ -1,16 +1,30 @@
 import axios from 'axios'
 const loginAPI1 = (resFun, errFun, params)=>{
-    axios.get('/api1/users', {
-        "params": params
+  axios.get('/api1/users', {
+      "params": params
+    })
+      .then(function (res) {
+        if(resFun != null && resFun != undefined)
+          resFun(res)
       })
-        .then(function (res) {
-          if(resFun != null && resFun != undefined)
-            resFun(res)
-        })
-        .catch(function (err) {
-          if(errFun != null && errFun != undefined)
-            errFun(err)
-        })
+      .catch(function (err) {
+        if(errFun != null && errFun != undefined)
+          errFun(err)
+      })
+}
+
+const usersRegisterAPI1 = (resFun, errFun, params)=>{
+  axios.post('/api1/users', {
+    "params": params
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
 }
 
 const getHouseInfAPI1 = (resFun, errFun, params)=>{
@@ -28,4 +42,4 @@ const getHouseInfAPI1 = (resFun, errFun, params)=>{
 }
 
 
-export {loginAPI1, getHouseInfAPI1}
+export {loginAPI1, usersRegisterAPI1, getHouseInfAPI1}

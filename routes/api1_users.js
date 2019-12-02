@@ -31,20 +31,32 @@ router.get('',function(req, res, next) {
 
 router.post('',function(req, res,) {
   console.log('---post')
+  
+  let params = req.body.params
   console.log(req.body)
+  console.log(params)
   var inf = {
-    "Users_Account": req.query.usersA18ccount,
-    "Users_PassWord": req.query.usersPass,
-    "Users_Rank": req.query.usersRank
+    "Users_Account": params.usersAccount,
+    "Users_PassWord": params.usersPass,
+    "Users_Rank": params.usersRank,
+    "Users_Name": params.usersAccount
   }
-  var sql = session.getSQL('selectUsers', inf)
+  console.log(inf)
+  var sql = session.getSQL('insertUsers', inf)
   
   console.log(sql)
   session.query(sql, (err, rows, fields)=>{
-    for(var a in rows){
-      console.log(rows[a])
+    let ret = {
+      "result": false,
+      'mess': 'false'
     }
-    res.end(JSON.stringify(rows) )
+    if(err != null && rows == undefined) {
+      ret.mess = "用户名已被注册"
+    } else {
+      res.result = true
+      res.mess = "成功"
+    }
+    res.end(JSON.stringify(ret) )
   })
 })
 
