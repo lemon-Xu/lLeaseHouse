@@ -6,10 +6,11 @@ var usersRouter = require('./routes/api1_users');
 var bodyParser = require('body-parser') 
 var houseLeaseInfRouter = require('./routes/api1_HouseLeaseInf');
 var houseInf = require('./routes/api1_HouseInf')
+var imgRouter = require('./routes/api1_img')
 
 // 中间件
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json({limit: '50mb'}))
+app.use(bodyParser.urlencoded({extended: false, limit: '50mb'}));
 
 // 静态文件
 app.use('/dist', express.static('dist'))
@@ -18,11 +19,14 @@ app.use('/public', express.static('public'))
 // 路由
 app.use('/', indexRouter);
 
+
+
+
 // api1
 app.use('/api1/users', usersRouter);
-app.use('/api1/houseInf', houseInf)
+app.use('/api1/houseInf', houseInf);
+app.use('/api1/img', imgRouter);
 app.use('/api1/houseLeaseInf', houseLeaseInfRouter);
-
 
 
 app.listen(3000);
