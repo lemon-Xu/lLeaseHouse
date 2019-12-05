@@ -257,78 +257,14 @@ class Avatar extends React.Component {
   }
 }
 
-ReactDOM.render(<Avatar />, document.getElementById('avatar'));
+// ReactDOM.render(
+//   <Login />,
+//   document.getElementById('login')
+// )
 
-class A123 extends React.Component{
-  constructor(props){
-    super(props)
-    this.upload = this.upload.bind(this)
-    this.divClick = this.divClick.bind(this)
-  }
-
-  upload(){
-    //检验是否为图像文件  
-    var file = document.getElementById("file").files[0]; 
-    console.log(file)
-    if(!/image\/\w+/.test(file.type)){  
-        alert("看清楚，这个需要图片！");  
-        return false;  
-    }  
-    var form = new FormData(); // FormData 对象
-    form.append("file", document.getElementById("file").files[0]); // 文件对象
-    console.log(form)
-    var reader = new FileReader();  
-    //将文件以Data URL形式读入页面  
-    reader.readAsBinaryString(file);  
-    reader.onload=function(e){  
-       console.log(this.result) 
-       axios.post('/api1/img',{
-        "file": file,
-        "base64": this.result,
-        "form": form
-      }) 
-    }  
-    axios.post('/api1/img',{
-      "file": file,
-      "base64": this.result,
-      "form": form
-    }) 
-  }
-
-  divClick(){
-    let dom = document.getElementById('file')
-   
-  }
-
-  show(e){
-    console.log(e.target)
-  }
-
-  render(){
-    return(<div onClick={this.divClick}>
-        <input type="file" id="file"/>
-        <button onClick={this.upload}>upload</button>
-      </div>
-    )
-  }
-}
-
-
-ReactDOM.render(
-  <A123 />,
-  document.getElementById("uploadImg")
-);
-
-
-
-ReactDOM.render(
-  <Login />,
-  document.getElementById('login')
-)
-
-ReactDOM.render(
-  <Register />,
-  document.getElementById('register')
-)
-
+// ReactDOM.render(
+//   <Register />,
+//   document.getElementById('register')
+// )
+// ReactDOM.render(<Avatar />, document.getElementById('avatar'));
 export {Login}

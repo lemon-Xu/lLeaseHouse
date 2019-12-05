@@ -64,3 +64,10 @@
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":2,"month":11,"year":2019,"time":"11-1-32"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":2,"month":11,"year":2019,"time":"11-2-17"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_PassWord":"12341234","Users_Rank":"游客"},"ret":" SELECT * FROM users WHERE Users_Rank = '游客' AND Users_PassWord = MD5('12341234')"},"date":{"day":2,"month":11,"year":2019,"time":"11-5-7"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"19-34-5"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"19-35-52"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"20-26-24"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-20-4"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-20-30"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-21-14"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-57-40"}},"level":"debug"}

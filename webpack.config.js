@@ -16,7 +16,7 @@ module.exports = {
     entry: {
         login: './src/lemon/js/login.js',
         home: './src/lemon/js/home.js',
-        index: './src/lemon/js/index.js'
+        index: './src/lemon/js/index.js',
         // yeyu: './src/yeyu/js/yeyu.js',
         // firia: './src/firia/js/firia.js'
     },

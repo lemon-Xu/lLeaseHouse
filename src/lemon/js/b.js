@@ -1,13 +1,13 @@
 import React from 'react';
 
-class Home extends React.Component {
+class Detail extends React.Component {
     render() {
         return (
             <div>
-                <a href='#/detail'>去detail</a>
+                <a  href='#/'>回到home</a>
             </div>
         )
     }
 }
 
-export {Home}
+export {Detail}

@@ -1,0 +1,41 @@
+.textBlack{
+    color: black;
+}
+.textAlign{
+    text-align: center;
+}
+.borderBottomSolid{
+    border-bottom: 0.5px dashed black;
+    width: 100%;
+}
+.marginLeft{
+    margin-left: 20px;
+}
+.marginRightOne{
+    margin-right: 100px;
+}
+.marginRightTwo{
+    margin-right: 20px;
+}
+.marginTop20px{
+    margin-top: 20px;
+}
+.marginbottom30px{
+    margin-bottom: 30px;
+}
+.fontSize15px{
+    font-size: 15px;
+}
+.button{
+    border-radius: 20px;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+    margin-right: 20px;
+}
+.width600px{
+    width: 600px;
+}

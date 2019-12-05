@@ -8,6 +8,7 @@ router.get('',function(req, res, next) {
   var inf = {
     "Users_Account": req.query.usersAccount,
     "Users_PassWord": req.query.usersPass,
+    "Users_ID": req.query.usersId
   }
   var sql = session.getSQL('selectUsers', inf)
   
