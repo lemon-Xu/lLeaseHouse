@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Upload, Icon, message, Button } from 'antd';
 import styleLemon from '../css/login.css';
 import {loginAPI1, usersRegisterAPI1, getHouseInfAPI1, postHouseInfImgAPI1} from './ajaxAPI1.js';
-import axios from 'axios'
+
 
 class Login_p extends React.Component{
 

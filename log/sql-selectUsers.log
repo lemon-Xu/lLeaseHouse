@@ -71,3 +71,5 @@
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-20-30"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-21-14"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":5,"month":11,"year":2019,"time":"21-57-40"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":7,"month":11,"year":2019,"time":"16-46-47"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":7,"month":11,"year":2019,"time":"16-50-11"}},"level":"debug"}

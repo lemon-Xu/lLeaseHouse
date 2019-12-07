@@ -1,66 +1,60 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Menu, Icon } from 'antd';
-import {BasicRoute} from './router';
-const { SubMenu } = Menu;
+import { BasicRoute, HeaderBar, CentreContent } from './router';
+import { Menu, Icon, Row, Col } from 'antd';
 
-class App extends React.Component {
+const { SubMenu } = Menu;
+class Content extends React.Component{
   constructor(props){
     super(props)
-    this.state = {
-      current: 'mail',
-    };
-    this.handleClick = this.handleClick.bind(this)
   }
 
-  handleClick(e){
-    console.log('click ', e);
-    this.setState({
-      current: e.key,
-    });
-  };
-
-  render() {
-    return (
-      <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-        <Menu.Item key="mail">
-          <Icon type="mail" />
-          Navigation One
-        </Menu.Item>
-        <Menu.Item key="app" disabled>
-          <Icon type="appstore" />
-          Navigation Two
-        </Menu.Item>
-        <SubMenu
-          title={
-            <span className="submenu-title-wrapper">
-              <Icon type="setting" />
-              Navigation Three - Submenu
-            </span>
-          }
-        >
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
-        <Menu.Item key="alipay">
-          <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-            Navigation Four - Link
-          </a>
-        </Menu.Item>
-      </Menu>
-    );
+  render(){
+    return(
+      <div className="gutter-example">
+                <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 20]}>
+                    <Col className="gutter-row" span={24}>
+                        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 20]}>
+                            <Col className="gutter-row" span={2}>
+                                2
+            </Col>
+                            <Col className="gutter-row" span={4}>
+                                4
+            </Col>
+                            <Col className="gutter-row" span={12}>
+                                <CentreContent />
+                            </Col>
+                            <Col className="gutter-row" span={4}>
+                                <Icon type="bell" />
+                                <Icon type="user" />
+                            </Col>
+                            <Col className="gutter-row" span={2}>
+                                2
+            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </div>
+    )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('a123'));
+class App extends React.Component{
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+    return(
+      <div>
+        <HeaderBar />
+        <Content />
+      </div>
+    )
+  }
+}
 
 ReactDOM.render(
-  <BasicRoute/>,
+  <App/>,
   document.getElementById('app')
 );
