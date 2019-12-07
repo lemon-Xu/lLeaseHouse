@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Cookies from 'js-cookie'
 import { Upload, Icon, message, Button } from 'antd';
 import styleLemon from '../css/login.css';
 import {loginAPI1, usersRegisterAPI1, getHouseInfAPI1, postHouseInfImgAPI1} from './ajaxAPI1.js';
 
+const registerURL = '#/register'
 
 class Login_p extends React.Component{
 
@@ -93,17 +95,22 @@ class Login extends React.Component {
   login() {
     console.log("usersName:" + this.state.usersName)
     console.log("usersPass:" + this.state.usersPass)
-    loginAPI1((res)=>{
-      console.log(res.data)
-      if(res.data.length != 0)
-        window.location.href = '/dist/home.html'
-      else
-        alert('错误')
-    }), ()=>{},
-    {
+    let params = {
       "usersAccount": this.state.usersName,
       "usersPass": this.state.usersPass
     }
+    loginAPI1((res)=>{
+      let data = res.data
+      console.log(data)
+      if(data != '查询错误') {
+        window.location.href = '#/home'
+        Cookies.set('usersID', data.usersID)
+        console.log(document.cookie)
+      }
+      else
+        alert('错误')
+    }, (err)=>{},
+    params)
   }
 
   render() {
@@ -118,7 +125,7 @@ class Login extends React.Component {
         <Login_button onClick={this.login}>Sign in</Login_button>
       </Board>
       <Board>
-         <a>new to HouseLease? create HouseLease account</a>
+         <a href={registerURL}>new to HouseLease? create HouseLease account</a>
       </Board>
     </div>
   }
@@ -257,6 +264,7 @@ class Avatar extends React.Component {
   }
 }
 
+
 // ReactDOM.render(
 //   <Login />,
 //   document.getElementById('login')
@@ -267,4 +275,4 @@ class Avatar extends React.Component {
 //   document.getElementById('register')
 // )
 // ReactDOM.render(<Avatar />, document.getElementById('avatar'));
-export {Login}
+export {Login, Register}

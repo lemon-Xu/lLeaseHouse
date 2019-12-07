@@ -11,12 +11,12 @@ router.get('',function(req, res, next) {
     "Users_ID": req.query.usersId
   }
   var sql = session.getSQL('selectUsers', inf)
-  
   console.log(sql)
   session.query(sql, (err, rows, fields)=>{
-    if(rows == null && rows == undefined)
+    if(rows == null || rows == undefined)
       res.end('查询错误')
-    else {
+    else if(rows.length != 0){
+      console.log(rows)
       var ret = {
         "usersID": rows[0].Users_ID,
         "usersAccount": rows[0].Users_Account,
@@ -25,7 +25,7 @@ router.get('',function(req, res, next) {
       }
       res.json(ret)
     }
-
+      res.end('查询错误')
   })
 
 })

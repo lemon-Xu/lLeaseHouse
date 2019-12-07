@@ -1,0 +1,41 @@
+.houseLeaseInf{
+    width:  700px;
+    height: 180px;
+    border: 5px blanchedalmond solid;
+}
+.houseLeaseInf>div{
+    margin: 10px 10px 10px 0;
+    float: left;
+}
+.houseLeaseInf div:nth-child(1){
+    width: 150px;
+    height: 150px;
+}
+.houseLeaseInf div:nth-child(1) img{
+    width: 150px;
+    height: 150px;
+}
+.houseLeaseInf div:nth-child(2){
+    width: 150px;
+    height: 150px;
+}
+.houseLeaseInf div:nth-child(2) p:nth-child(1){
+    font-weight: 450;
+    font-size: 20px;
+}
+.houseLeaseInf div:nth-child(2) p:nth-child(2){
+    font-size: 14px;
+}
+.houseLeaseInf div:nth-child(2) p:nth-child(2) span:nth-child(2){
+    margin-left: 8px;
+}
+.houseLeaseInf div:nth-child(2) p:nth-child(3){
+    font-size: 14px;
+    color: #999;
+    text-overflow: ellipsis;
+}
+.houseLeaseInf div:nth-child(3){
+    width: 150px;
+    height: 150px;
+}
+

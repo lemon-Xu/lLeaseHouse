@@ -5,9 +5,11 @@ import { Menu, Icon, Row, Col } from 'antd';
 
 import { Home } from './a';
 import { Detail } from './b';
-import { Login } from './login'
+import { Login, Register } from './login'
 import { Information } from './yeyu'
+import { HouseBriefInf} from './houseLeaseInf'
 
+import { headerBar, iconSize} from '../css/router.css'
 const { SubMenu } = Menu;
 
 class BasicRoute extends React.Component {
@@ -41,11 +43,30 @@ class CentreContent extends React.Component{
         return(
             <HashRouter>
                 <Switch>
-                    <Route exact path="/home" component={Home} />
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/home" component={HouseBriefInf} />
                     <Route exact path="/renting" component={Detail} />
                     <Route exact path="/rentOut" component={Login} />
                     <Route exact path="/community" component={Information} />
-                    {console.log('router')}
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
+                </Switch>
+            </HashRouter>
+        )
+    }
+}
+
+class LoginOrRegister extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return(
+            <HashRouter>
+                <Switch>
+                    <Route exact path="/" component={Login} />
+                    <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
                 </Switch>
             </HashRouter>
         )
@@ -53,12 +74,11 @@ class CentreContent extends React.Component{
 }
 
 
-
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: 'mail',
+            current: 'home',
         };
         this.handleClick = this.handleClick.bind(this)
     }
@@ -72,7 +92,7 @@ class NavigationBar extends React.Component {
 
     render() {
         return (
-            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
+            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal" theme="dark">
                 <Menu.Item key="home">
                     <a href="#/home"><Icon type="home" />home</a>
                 </Menu.Item>
@@ -121,24 +141,24 @@ class HeaderBar extends React.Component {
 
     render() {
         return (
-            <div className="gutter-example">
-                <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 20]}>
-                    <Col className="gutter-row" span={24}>
+            <div className="gutter-example" >
+                <Row>
+                    <Col className="gutter-row" span={24} className={headerBar}>
                         <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 20]}>
-                            <Col className="gutter-row" span={2}>
+                            <Col className="gutter-row" span={2} className={headerBar}>
                                 2
             </Col>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={4} className={headerBar}>
                                 4
             </Col>
                             <Col className="gutter-row" span={12}>
                                 <NavigationBar />
                             </Col>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" span={4} className={headerBar}>
                                 <Icon type="bell" />
                                 <Icon type="user" />
                             </Col>
-                            <Col className="gutter-row" span={2}>
+                            <Col className="gutter-row" span={2} className={headerBar}>
                                 2
             </Col>
                         </Row>

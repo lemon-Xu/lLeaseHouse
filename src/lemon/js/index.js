@@ -25,8 +25,7 @@ class Content extends React.Component{
                                 <CentreContent />
                             </Col>
                             <Col className="gutter-row" span={4}>
-                                <Icon type="bell" />
-                                <Icon type="user" />
+                                4
                             </Col>
                             <Col className="gutter-row" span={2}>
                                 2

@@ -1,8 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import {Button, Icon} from 'antd'
-import {fontsize20px, margintop30px, marginbottom30px, right, width600px, textBlack, textAlign, borderBottomSolid, marginLeft, marginRightOne, marginRightTwo, button} from '../css/personaldata.css'
-import {getUsersInfAPI1} from './ajaxAPI1'
+import { Button, Icon} from 'antd'
+import { fontsize20px, margintop30px, marginbottom30px, right, width600px, textBlack, textAlign, borderBottomSolid, marginLeft, marginRightOne, marginRightTwo, button} from '../css/personaldata.css'
+import { getUsersInfAPI1} from './ajaxAPI1'
+import Cookies from 'js-cookie'
 /*
 最上端“我的账户组件”
 */
@@ -144,8 +145,13 @@ class Information extends React.Component{
   }
 
   toGetUsersInf(id){
+    let usersID = Cookies.get('usersID')
+    if(usersID == null || usersID == undefined){
+      alert('请先登陆')
+      window.location.href = '#/login'
+    }
     let params = {
-      usersId: id,
+      usersId: usersID,
       usersRank: '游客'
     }
     getUsersInfAPI1(

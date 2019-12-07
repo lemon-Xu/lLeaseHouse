@@ -1,5 +1,8 @@
 import axios from 'axios'
 const loginAPI1 = (resFun, errFun, params)=>{
+  let usersAccount = params.usersAccount
+  let usersPass = params.usersPass
+  console.log(usersAccount+usersPass)
   axios.get('/api1/users', {
       "params": params
     })
