@@ -7,7 +7,7 @@ import { Home } from './a';
 import { Detail } from './b';
 import { Login, Register } from './login'
 import { Information } from './yeyu'
-import { HouseBriefInf} from './houseLeaseInf'
+import { HouseBriefInf, HouseBriefInfArray } from './houseLeaseInf'
 
 import { headerBar, iconSize} from '../css/router.css'
 const { SubMenu } = Menu;
@@ -44,7 +44,7 @@ class CentreContent extends React.Component{
             <HashRouter>
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route exact path="/home" component={HouseBriefInf} />
+                    <Route exact path="/home" component={HouseBriefInfArray} />
                     <Route exact path="/renting" component={Detail} />
                     <Route exact path="/rentOut" component={Login} />
                     <Route exact path="/community" component={Information} />

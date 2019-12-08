@@ -1,0 +1,153 @@
+.Text_name_style *{
+    float: left; 
+    background-color:yellowgreen;
+}
+
+/* 名字 */
+.Text_name_style {
+    width: 180px;
+    margin:12px 5px;
+    color:blue;
+    float: left;
+    height:20px;
+    /*
+    名字左右边距5，上下边距12
+    
+    */
+}
+
+/* 简介 */
+.Text_main_style *{
+    width: 180px;
+    color:black;
+    height: 60px;
+    float: left;
+    position:relative;
+    left:-6px;
+}
+
+.Users1 *{
+    float: left;
+    background-color:#008CBA;
+}
+
+.Picture_style *{
+    width: 70px;
+    height: 70px;
+    border: 2px solid #000;
+    max-width: 100%;
+    max-height: 100%;
+    margin:12px 12px;
+    border-radius:7px;
+    -moz-border-radius:7px;
+    float: left;
+    /*
+    定义头像的大小和格式
+    3加边框
+    6定义上下左右边距各为12px
+    7，8圆角边框
+    */
+}
+
+.Text_style {
+    height: 10px;
+}
+
+
+.Button_style {
+    background-color:#008CBA;
+    border: none;
+    color: white;
+    padding: 7px,3px;/* 修改内边距 */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;/*文字大小 */
+    margin:20px 0px;/* 修改边距*/
+    cursor: pointer;/*修改鼠标 */
+}
+
+
+/*lemon*/
+.usersFollowPanel{
+    height: 70px;
+    width: 600px;
+    margin-bottom: 10px;
+}
+
+.usersFollowPanel *{
+    float: left;
+    margin-right: 8px;
+}
+
+.usersFollowPanelImg{
+    width: 70px;
+    height: 70px;
+    margin-right: 8px;
+}
+
+.usersFollowPanelImg img{
+    width: 100%;
+    height: 100%;
+    border: 2px solid #000;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius:7px;
+    -moz-border-radius:7px;
+    float: left;
+}
+
+.usersFollowPanelP{
+    width: 165px;
+    color:rgb(248, 9, 9);
+    height: 60px;
+}
+
+.usersFollowPanelP p{
+    width: 160px;
+    color:red;
+    height: 60px;
+    float: left;
+    position:relative;
+    left:-6px;
+}
+
+.usersFollowPanelP p:nth-child(1){
+    width: 150px;
+    color:#0000C6;
+    float: left;
+    height:8px;
+    left:10px;
+    font-size: 14px;
+
+}
+
+.usersFollowPanelP p:nth-child(2){
+    width:150px;
+    color:#3C3C3C;
+    height: 60px;
+    float: left;
+    position:relative;
+    left:6px;
+    font-size: 12px;
+}
+.usersFollowPanelButton{
+    height: 100%;
+}
+.usersFollowPanelButton button{
+    background-color:#008CBA;
+    border: none;
+    color: white;
+    padding: 7px,3px;/* 修改内边距 */
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;/*文字大小 */
+    margin:20px 0px;/* 修改边距*/
+    cursor: pointer;/*修改鼠标 */
+}
+
+.usersFollowPanelArray{
+    height: 350px;
+    width: 350px;
+}
