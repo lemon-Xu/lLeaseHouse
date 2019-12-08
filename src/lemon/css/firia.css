@@ -89,7 +89,6 @@
 .usersFollowPanelImg img{
     width: 100%;
     height: 100%;
-    border: 2px solid #000;
     max-width: 100%;
     max-height: 100%;
     border-radius:7px;
@@ -130,6 +129,7 @@
     position:relative;
     left:6px;
     font-size: 12px;
+    padding-top: 14px;
 }
 .usersFollowPanelButton{
     height: 100%;

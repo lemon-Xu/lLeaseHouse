@@ -1,62 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { Button } from 'antd';
-import {Text_name_style, Text_main_style, Picture_style,Text_style,Button_style, usersFollowPanel, usersFollowPanelImg, usersFollowPanelP, usersFollowPanelArray, usersFollowPanelButton} from '../css/firia.css'
-import { getTwoToneColor } from 'antd/lib/icon/twoTonePrimaryColor';
-
-
-class Textbox extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return(
-      <p className={Text_style}>{this.props.leftText}</p>
-   )
-  }
-}
-
-class Users extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return(
-    <div className="Users1">
-        <div className={Picture_style}>
-          <img src={this.props.imgSrc} ></img>
-        </div>
-        
-        <div className={Text_name_style}>
-          <Textbox leftText={this.props.usersName}/>
-          <div className={Text_main_style}>
-            <Textbox leftText={this.props.introduction}/>
-          </div>
-        </div>
-        <Button className={Button_style}>关注ta</Button>
-    </div>
-   )
-  }
-}
+import { usersFollowPanel, usersFollowPanelImg, usersFollowPanelP, usersFollowPanelArray, usersFollowPanelButton } from '../css/firia.css'
+import { getUsersFollowInfAPI1 } from './ajaxAPI1'
+import { panel } from '../css/public.css'
 
 // lemon
 class UsersFollowPanel extends React.Component{
   constructor(props){
     super(props)
+    this.handleClick = this.handleClick.bind(this)
   }
+
+  handleClick(){
+    console.log('求关注')
+  }
+
   render(){
     return(
     <div className={usersFollowPanel}>
         <div className={usersFollowPanelImg}>
-          <img src="/public/images/logo.png"></img>
+          <img src={this.props.imgSrc}></img>
         </div>
         <div className={usersFollowPanelP}>
-          <p>Firia</p>
-          <p>哈哈哈哈哈哈哈哈哈哈哈哈哈哈这是我的简介</p>
+          <p>{this.props.usersName}</p>
+          <p>{this.props.usersProfile}</p>
         </div>
         <div className={usersFollowPanelButton}>
-          <button>关注</button>
+          <button onClick={this.handleClick}>关注</button>
         </div>
     </div>
    )
@@ -66,39 +37,68 @@ class UsersFollowPanel extends React.Component{
 class UsersFollowPanelArray extends React.Component{
   constructor(props){
     super(props)
+    this.state = {
+      usersFollowArray: new Array()
+    }
+  }
+
+  componentDidMount(){
+    this.toGetUsersFollowInf()
+  }
+
+  toGetUsersFollowInf(){
+    console.log('拉取关注列表')
+    let params = {
+      
+    }
+    console.log(1)
+    getUsersFollowInfAPI1(
+      (res)=>{
+        let data = res.data
+        console.log(data)
+        if(data == '查询错误'){
+          return
+        }
+        let usersFollowArray = new Array()
+        for(let index in data){
+          let inf = {
+            imgSrc: '/public/images/logo.png',
+            usersName: data[index].Users_Name,
+            usersProfile: data[index].Users_Profile
+          }
+          usersFollowArray.push(inf)
+        }
+        console.log(this)
+        console.log(usersFollowArray)
+        this.setState({usersFollowArray: usersFollowArray})
+        console.log(this.state.usersFollowArray)
+      },
+      (err)=>{},
+      params
+    )
   }
   
   render(){
+
+
     return(
-      <div className={usersFollowPanelArray}>
-        <UsersFollowPanel />
-        <UsersFollowPanel />
-        <UsersFollowPanel />
-        <UsersFollowPanel />
-        <UsersFollowPanel />
+      <div className={panel}>
+        <div>
+          <span>推荐用户</span>
+          <span>更多</span>
+        </div>
+        <div className={usersFollowPanelArray}>
+          {
+            this.state.usersFollowArray.map((item, index)=>{
+              console.log(item)
+              console.log(index)
+              return <UsersFollowPanel key={index} {...item}/>
+            })
+          }
+        </div>
       </div>
     )
   }
 }
 
-class Users_1 extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return(
-      <div>
-        <Users usersNmae="用户1" introduction="用户1简介" />
-        <Users usersNmae="用户2" introduction="用户2简介" />
-      </div>
-   )
-  }
-}
-ReactDOM.render(
-  <Users_1 imgSrc="/public/images/logo.png"/>,
-  document.getElementById('Users_1')
-)
-ReactDOM.render(
-  <UsersFollowPanelArray />,
-  document.getElementById('Users_1')
-)
+export { UsersFollowPanelArray }

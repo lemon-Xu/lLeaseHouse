@@ -1,0 +1,16 @@
+.panel{
+    border: 2px black solid;
+}
+.panel>div:nth-child(1){
+    margin-bottom: 18px;
+    border-bottom: 1px black solid;
+}
+.panel>div:nth-child(1) span{
+    padding: 8px 8px 0 8px;
+}
+.panel>div:nth-child(1) span:nth-child(1){
+    font-size: 20px;
+}
+.panel>div:nth-child(1) span:nth-child(2){
+    float: right;
+}

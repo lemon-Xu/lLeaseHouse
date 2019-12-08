@@ -3,7 +3,27 @@ import ReactDOM from 'react-dom';
 import { BasicRoute, HeaderBar, CentreContent } from './router';
 import { Menu, Icon, Row, Col } from 'antd';
 
+import { UsersFollowPanelArray } from './firia'
+import { rightContent } from '../css/index.css'
+
 const { SubMenu } = Menu;
+
+class RightContent extends React.Component{
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+    return(
+      <div className={rightContent}>
+        <UsersFollowPanelArray />
+      </div>
+    )
+  }
+}
+
+
+
 class Content extends React.Component{
   constructor(props){
     super(props)
@@ -22,10 +42,10 @@ class Content extends React.Component{
                                 4
             </Col>
                             <Col className="gutter-row" span={12}>
-                                <CentreContent />
+                              <CentreContent />
                             </Col>
                             <Col className="gutter-row" span={4}>
-                                4
+                              <RightContent />
                             </Col>
                             <Col className="gutter-row" span={2}>
                                 2

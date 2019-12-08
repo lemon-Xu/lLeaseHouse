@@ -16,6 +16,8 @@
     height: 150px;
 }
 .houseLeaseInf div:nth-child(2){
+    margin-right: 20px;
+    padding-top: 30px;
     width: 150px;
     height: 150px;
 }
@@ -35,7 +37,16 @@
     text-overflow: ellipsis;
 }
 .houseLeaseInf div:nth-child(3){
+    padding-top: 35px;
+    padding-left: 20px;
     width: 150px;
     height: 150px;
+    position: relative;
+}
+.floatRight{
+    float: right;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
 }
 

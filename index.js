@@ -1,13 +1,13 @@
-var path = require('path');
-var express = require('express');
-var app = express();
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/api1_users');
-var bodyParser = require('body-parser') 
-var houseLeaseInfRouter = require('./routes/api1_HouseLeaseInf');
-var houseInf = require('./routes/api1_HouseInf')
-var imgRouter = require('./routes/api1_img')
-
+const path = require('path');
+const express = require('express');
+const app = express();
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/api1_users');
+const bodyParser = require('body-parser') 
+const houseLeaseInfRouter = require('./routes/api1_HouseLeaseInf');
+const houseInf = require('./routes/api1_HouseInf')
+const imgRouter = require('./routes/api1_img')
+const usersFollow = require('./routes/api1_usersFollow')
 // 中间件
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -27,6 +27,6 @@ app.use('/api1/users', usersRouter);
 app.use('/api1/houseInf', houseInf);
 app.use('/api1/img', imgRouter);
 app.use('/api1/houseLeaseInf', houseLeaseInfRouter);
-
+app.use('/api1/usersFollow', usersFollow);
 
 app.listen(3000);

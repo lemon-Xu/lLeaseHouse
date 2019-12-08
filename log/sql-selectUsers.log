@@ -121,3 +121,4 @@
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":8,"month":11,"year":2019,"time":"9-46-50"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":8,"month":11,"year":2019,"time":"10-1-8"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":8,"month":11,"year":2019,"time":"10-11-26"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users  "},"date":{"day":8,"month":11,"year":2019,"time":"16-37-47"}},"level":"debug"}

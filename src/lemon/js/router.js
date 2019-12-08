@@ -8,6 +8,7 @@ import { Detail } from './b';
 import { Login, Register } from './login'
 import { Information } from './yeyu'
 import { HouseBriefInf, HouseBriefInfArray } from './houseLeaseInf'
+import { Users_1, UsersFollowPanelArray } from './firia'
 
 import { headerBar, iconSize} from '../css/router.css'
 const { SubMenu } = Menu;

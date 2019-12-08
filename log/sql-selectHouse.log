@@ -79,3 +79,67 @@
 {"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":7,"month":11,"year":2019,"time":"18-10-54"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":7,"month":11,"year":2019,"time":"18-11-0"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":7,"month":11,"year":2019,"time":"18-11-0"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":8,"month":11,"year":2019,"time":"16-37-48"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":8,"month":11,"year":2019,"time":"16-38-3"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":8,"month":11,"year":2019,"time":"16-38-6"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM house, landlor, houseLeaseInf WHERE house.House_ID = houseleaseinf.HouseLeaseInf_House_ID AND house.House_Landlor_ID = landlor.Landlor_ID"},"date":{"day":8,"month":11,"year":2019,"time":"16-38-8"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-42-5"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-47-33"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-49-24"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-58-10"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-58-12"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-58-20"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-58-25"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-59-15"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-59-17"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"16-59-20"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-0-0"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-1-11"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-2-29"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-3-37"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-4-22"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-7-5"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-7-50"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-7-53"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-8-21"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-8-54"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-9-12"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-12-5"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-14-53"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-18-12"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"17-33-20"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-7-12"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-8-41"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-8-45"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-9-53"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-11-0"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-13-40"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-15-18"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-15-48"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-15-58"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-15-59"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-16-6"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-16-39"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-17-15"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-17-47"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-18-29"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-19-47"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-20-5"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-20-6"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-20-8"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-20-29"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-20-30"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-21-43"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-21-54"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-25-59"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-26-4"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-26-36"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-33-34"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-33-36"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-33-37"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-33-38"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"18-33-39"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"19-25-32"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"19-25-33"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"19-26-29"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouse","parameter":{},"ret":" SELECT * FROM House  "},"date":{"day":8,"month":11,"year":2019,"time":"19-26-36"}},"level":"debug"}

@@ -2,13 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie'
 import { Icon } from 'antd';
-import { houseLeaseInf } from '../css/houseLeaseInf.css'
+import { houseLeaseInf, floatRight } from '../css/houseLeaseInf.css'
 import { getHouseInfAPI1 } from './ajaxAPI1'
 class HouseBriefInf extends React.Component{
     constructor(props){
         super(props)
+        this.handleClick = this.handleClick.bind(this)
+        this.state = {
+            followIcon: 'outlined'
+        }
     }
-
+    handleClick(event){
+        console.log('被点了')
+        let followIcon = this.state.followIcon == 'filled' ? 'outlined' : 'filled'
+        this.setState({followIcon: followIcon})
+        
+    }
     render(){
         return(
             <div className={houseLeaseInf}>
@@ -17,13 +26,13 @@ class HouseBriefInf extends React.Component{
                 </div>
                 <div>
                     <p>{this.props.title}</p>
-                    <p><span>{this.props.street}</span>街道<span>{this.props.district}</span>区</p>
+                    <p><span>{this.props.city}</span><span>{this.props.district}</span></p>
                     <p>{this.props.introduce}</p>
                 </div>
                 <div>
                     <p>{this.props.leaseMoney}<span>/{this.props.leaseType}</span></p>
                     <span>
-                        <Icon type="heart"></Icon>
+                        <Icon type="heart" theme={this.state.followIcon} className={floatRight} onClick={this.handleClick}></Icon>
                     </span>
                 </div>
             </div>
@@ -34,8 +43,11 @@ class HouseBriefInf extends React.Component{
 class HouseBriefInfArray extends React.Component{
     constructor(props){
         super(props)
-        this.inf = new Array()
-        this.inf.push({
+        this.state = {
+            inf: new Array()
+        }
+        this.state.inf.push({
+            houseId: 1,
             title: '房源',
             street: '百草路',
             district: '1号',
@@ -44,26 +56,54 @@ class HouseBriefInfArray extends React.Component{
             leaseType: '月'
         })
     }
+    componentDidMount(){
+        this.toGetHouseInf()
+    }
     toGetHouseInf(){
         let params = {
             
         }
         getHouseInfAPI1(
-            (res)=>{},
+            (res)=>{
+                let data = res.data
+                if(data == '查询错误'){
+                    console.log('房屋信息查询错误')
+                    return
+                }
+                console.log(data)
+                let houseInf = new Array()
+                for(let index in data){
+                    let house = {
+                        houseID: data[index].House_ID,
+                        landlordID: data[index].House_Users_ID,
+                        title: data[index].House_Headline,
+                        city: data[index].House_City,
+                        district: data[index].House_District,
+                        introuce: data[index].House_Profile,
+                        leaseMoney: data[index].House_LeaseMoney,
+                        leaseType: data[index].House_Mode
+                    }
+                    houseInf.push(house)
+                }
+               this.setState({
+                   inf: houseInf
+               })
+            },
             (err)=>{},
             params
             )
     }
     render(){
         let array = new Array;
-        for(let index in this.inf){
-            array.push(<HouseBriefInf {...this.inf[index]} />)
+        console.log(this.state.inf)
+        for(let index in this.state.inf){
+            array.push(<HouseBriefInf {...this.state.inf[index]} />)
         }
         return(
             <div>
                 {
                     array.map((item, index)=>{
-                        return <div key={item}>{item}</div>
+                        return <div key={index}>{item}</div>
                     })
                 }
             </div>

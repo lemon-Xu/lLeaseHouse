@@ -18,10 +18,9 @@ class PersonalDataHead extends React.Component{
       let cb = this.props.clickCB
       console.log(cb)
       if(typeof(cb) == 'function')
-        console.log('是个函数')
+        cb(event)
       else
         throw 'callBack必须是一个函数'
-      cb(event)
     }
 
 
