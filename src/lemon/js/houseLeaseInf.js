@@ -1,14 +1,62 @@
 import React from 'react';
 import Cookies from 'js-cookie'
-import { Icon, Row, Col, Button, DatePicker } from 'antd';
+import { Icon, Row, Col, Button, DatePicker, Input } from 'antd';
 import { houseLeaseInf, floatRight, gridBar, gridBarBorderTop } from '../css/houseLeaseInf.css'
 import { getHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-moment.locale('zh-cn');
 
-console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+import { Cascader } from 'antd';
+
+const options = [
+  {
+    value: 'zhejiang',
+    label: 'Zhejiang',
+    children: [
+      {
+        value: 'hangzhou',
+        label: 'Hangzhou',
+        children: [
+          {
+            value: 'xihu',
+            label: 'West Lake',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'jiangsu',
+    label: 'Jiangsu',
+    children: [
+      {
+        value: 'nanjing',
+        label: 'Nanjing',
+        children: [
+          {
+            value: 'zhonghuamen',
+            label: 'Zhong Hua Men',
+          },
+        ],
+      },
+    ],
+  },
+];
+
+function onChange(value) {
+  console.log(value);
+}
+
+// ReactDOM.render(
+//   <Cascader options={options} onChange={onChange} placeholder="Please select" />,
+//   mountNode,
+// );
+
+
+
+
+moment.locale('zh-cn');
 
 const { MonthPicker, RangePicker } = DatePicker;
 
@@ -368,4 +416,77 @@ class DealInf extends React.Component{
     }
 }
 
-export { HouseBriefInf, HouseBriefInfArray, HouseInfInputPanel, HouseInf }
+// 房屋信息填写组件
+class HouseInfInput extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return(
+            <div>
+                <Row>
+                    <HouseAllInfInput />
+                    <GridBarBorder />
+                    <HouseAllInf  />
+                    <GridBarBorder />
+                    <DealInf  />
+                    <GridBarBorder />
+                    <Col span={24}>
+                        <RangePicker defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
+                    </Col>
+                    <Col span={24}>
+                        <Button type="primary" block>租赁</Button>
+                    </Col>
+                </Row>
+            </div> 
+        )
+    }
+}
+
+//房源信息填写组件
+class HouseAllInfInput extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return(
+            <div>
+                <Row>
+                    <GridBar><p>房源信息</p></GridBar>
+                    <GridBar><p>标题:</p><Input placeholder="标题" /></GridBar>
+                    <GridBar><p>面积:</p><Input placeholder="" /></GridBar>
+                    <Col span={24}>
+                        <Row>
+                            <Col span={4}>地址:</Col>
+                            <Col span={9}><Cascader options={options} onChange={onChange} placeholder="Please select" /></Col>
+                            <Col span={9}><Input placeholder="如：百草路1号-10栋-404" /></Col>
+                            <Col span={2}></Col>
+                        </Row>
+                    </Col>
+                    <Col span={24}>
+                        <Row>
+                            <Col span={4}>简介:</Col>
+                            <Col span={18}><Input.TextArea rows={10}/></Col>
+                            <Col span={2}></Col>
+                        </Row>
+                    </Col>
+                    <GridBar><p>照片:</p></GridBar>
+                </Row>
+            </div> 
+        )
+    }
+}
+
+// 交易信息填写组件
+class DealInfInput extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return(
+            <div></div>
+        )
+    }
+}
+
+export { HouseBriefInf, HouseBriefInfArray, HouseInfInputPanel, HouseInf, HouseInfInput }
