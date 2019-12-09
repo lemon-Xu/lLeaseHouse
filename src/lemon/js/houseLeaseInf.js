@@ -1,9 +1,20 @@
 import React from 'react';
 import Cookies from 'js-cookie'
-import { Icon, Row, Col, Button } from 'antd';
-import { houseLeaseInf, floatRight, gridBar, geridBarBorder } from '../css/houseLeaseInf.css'
+import { Icon, Row, Col, Button, DatePicker } from 'antd';
+import { houseLeaseInf, floatRight, gridBar, gridBarBorderTop } from '../css/houseLeaseInf.css'
 import { getHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
+import moment from 'moment';
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
+
+console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+
+const { MonthPicker, RangePicker } = DatePicker;
+
+const dateFormat = 'L';
+
+
 
 class GridBar extends React.Component{
     constructor(props){
@@ -37,11 +48,11 @@ class GridBarBorder extends React.Component{
     }
     render(){
         return(
-            <Col span={24}>
+            <Col span={24} >
                 <Row>
-                    <Col span={4}><p>4</p></Col>
-                    <Col span={16}><p>16</p></Col>
-                    <Col span={4}><p>4</p></Col>
+                    <Col span={1}><p></p></Col>
+                    <Col span={22} className={gridBarBorderTop}><p></p></Col>
+                    <Col span={1}><p></p></Col>
                 </Row>
             </Col>
         )
@@ -258,13 +269,16 @@ class HouseInf extends React.Component{
                 <div>
                     <Row>
                         <LandlordInf {...this.state.inf.landlordInf} />
-                        <Col span={24} className={geridBarBorder}></Col>
+                        <GridBarBorder />
                         <HouseAllInf {...this.state.inf.houseAllInf} />
-                        <Col span={24} className={geridBarBorder}></Col>
+                        <GridBarBorder />
                         <DealInf {...this.state.inf.dealInf} />
-                        <Col span={24} className={geridBarBorder}></Col>
+                        <GridBarBorder />
                         <Col span={24}>
-                            <Button>租赁</Button>
+                            <RangePicker defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
+                        </Col>
+                        <Col span={24}>
+                        <Button type="primary" block>租赁</Button>
                         </Col>
                     </Row>
                 </div>
@@ -281,16 +295,10 @@ class HouseInf extends React.Component{
                         <DealInf {...dealInf} />
                         <GridBarBorder />
                         <Col span={24}>
-                            <Button>租赁</Button>
+                            <RangePicker defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
                         </Col>
                         <Col span={24}>
-                            <Row className={gridBar}>
-                                <Col span={4}>{kids[0]}</Col>
-                                <Col span={6}>{kids[1]}</Col>
-                                <Col span={4}>{kids[2]}</Col>
-                                <Col span={6}>{kids[3]}</Col>
-                                <Col span={2}>{kids[4]}</Col>
-                            </Row>
+                            <Button type="primary" block>租赁</Button>
                         </Col>
                     </Row>
                 </div>
