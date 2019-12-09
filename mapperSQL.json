@@ -85,8 +85,12 @@
     },
     "selectHouse": {
         "type": "select",
-        "sql": " SELECT * FROM House ",
+        "sql": " SELECT House.*, Users_Phone, Users_Name FROM House, Users ",
         "where": [
+            {
+                "logic": "1 == 1",
+                "sql": " AND House_Users_ID = Users_ID" 
+            },
             {
                 "logic": "House_ID != null",
                 "sql": "AND House_ID = #{House_ID}"
@@ -98,6 +102,10 @@
             {
                 "logic": "House_Users_ID != null",
                 "sql": "AND House_Users_ID = #{House_Users_ID}"
+            },
+            {
+                "logic": "Users_Name != null",
+                "sql": "AND Users_Name = #{Users_Name}"
             }
         ]
     },

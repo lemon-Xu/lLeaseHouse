@@ -7,7 +7,7 @@ import { Home } from './a';
 import { Detail } from './b';
 import { Login, Register } from './login'
 import { Information } from './yeyu'
-import { HouseBriefInf, HouseBriefInfArray } from './houseLeaseInf'
+import { HouseBriefInf, HouseBriefInfArray, HouseInf } from './houseLeaseInf'
 import { Users_1, UsersFollowPanelArray } from './firia'
 
 import { headerBar, iconSize} from '../css/router.css'
@@ -46,7 +46,7 @@ class CentreContent extends React.Component{
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/home" component={HouseBriefInfArray} />
-                    <Route exact path="/renting" component={Detail} />
+                    <Route exact path="/renting/:houseID/:usersID" component={HouseInf} />
                     <Route exact path="/rentOut" component={Login} />
                     <Route exact path="/community" component={Information} />
                     <Route exact path="/login" component={Login} />

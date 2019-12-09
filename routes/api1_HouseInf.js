@@ -6,7 +6,9 @@ router.get('',function(req, res, next) {
   console.log('---get')
   console.log(req.query)
   var inf = {
-    "House_IsBan": req.query.House_IsBan
+    House_IsBan: req.query.House_IsBan,
+    House_ID: req.query.House_ID,
+    Users_Name: req.query.Users_Name
   }
   var sql = session.getSQL('selectHouse', inf)
   

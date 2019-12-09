@@ -32,22 +32,22 @@ class Content extends React.Component{
   render(){
     return(
       <div className="gutter-example">
-                <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 20]}>
+                <Row>
                     <Col className="gutter-row" span={24}>
-                        <Row gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 20]}>
-                            <Col className="gutter-row" span={2}>
+                        <Row>
+                            <Col className="gutter-row" xl={2} lg={0} md={0} sm={0} xs={0}>
                                 2
             </Col>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" xl={4} lg={2} md={0} sm={0} xs={0}>
                                 4
             </Col>
-                            <Col className="gutter-row" span={12}>
+                            <Col className="gutter-row" xl={12} lg={13} md={16} sm={24} xs={24}>
                               <CentreContent />
                             </Col>
-                            <Col className="gutter-row" span={4}>
+                            <Col className="gutter-row" xl={4} lg={9} md={8} sm={0} xs={0}>
                               <RightContent />
                             </Col>
-                            <Col className="gutter-row" span={2}>
+                            <Col className="gutter-row" xl={2} lg={0} md={0} sm={0} xs={0}>
                                 2
             </Col>
                         </Row>
