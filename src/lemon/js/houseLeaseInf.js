@@ -1,10 +1,53 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie'
 import { Icon, Row, Col, Button } from 'antd';
-import { houseLeaseInf, floatRight } from '../css/houseLeaseInf.css'
+import { houseLeaseInf, floatRight, gridBar, geridBarBorder } from '../css/houseLeaseInf.css'
 import { getHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
+
+class GridBar extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        const kids = React.Children.map(this.props.children, child => {
+                        return child
+                    })
+        console.log(kids)
+        for(let index = kids.length; index < 5; index++){
+            kids.push(<p></p>)
+        }
+        return(
+            <Col span={24}>
+                <Row className={gridBar}>
+                    <Col span={4}>{kids[0]}</Col>
+                    <Col span={6}>{kids[1]}</Col>
+                    <Col span={4}>{kids[2]}</Col>
+                    <Col span={6}>{kids[3]}</Col>
+                    <Col span={2}>{kids[4]}</Col>
+                </Row>
+            </Col>
+        )
+    }
+}
+
+class GridBarBorder extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return(
+            <Col span={24}>
+                <Row>
+                    <Col span={4}><p>4</p></Col>
+                    <Col span={16}><p>16</p></Col>
+                    <Col span={4}><p>4</p></Col>
+                </Row>
+            </Col>
+        )
+    }
+}
+
 
 // 房源最小信息组件
 class HouseBriefInf extends React.Component{
@@ -215,11 +258,11 @@ class HouseInf extends React.Component{
                 <div>
                     <Row>
                         <LandlordInf {...this.state.inf.landlordInf} />
-                        <Col span={24}>/</Col>
+                        <Col span={24} className={geridBarBorder}></Col>
                         <HouseAllInf {...this.state.inf.houseAllInf} />
-                        <Col span={24}>/</Col>
+                        <Col span={24} className={geridBarBorder}></Col>
                         <DealInf {...this.state.inf.dealInf} />
-                        <Col span={24}>/</Col>
+                        <Col span={24} className={geridBarBorder}></Col>
                         <Col span={24}>
                             <Button>租赁</Button>
                         </Col>
@@ -232,13 +275,22 @@ class HouseInf extends React.Component{
                 <div>
                     <Row>
                         <LandlordInf {...landlordInf} />
-                        <Col span={24}>/</Col>
+                        <GridBarBorder />
                         <HouseAllInf {...houseAllInf} />
-                        <Col span={24}>/</Col>
+                        <GridBarBorder />
                         <DealInf {...dealInf} />
-                        <Col span={24}>/</Col>
+                        <GridBarBorder />
                         <Col span={24}>
                             <Button>租赁</Button>
+                        </Col>
+                        <Col span={24}>
+                            <Row className={gridBar}>
+                                <Col span={4}>{kids[0]}</Col>
+                                <Col span={6}>{kids[1]}</Col>
+                                <Col span={4}>{kids[2]}</Col>
+                                <Col span={6}>{kids[3]}</Col>
+                                <Col span={2}>{kids[4]}</Col>
+                            </Row>
                         </Col>
                     </Row>
                 </div>
@@ -259,9 +311,9 @@ class LandlordInf extends React.Component{
         return(
             <div>
                 <Row>
-                    <Col span={24}>房东信息<span></span></Col>
-                    <Col span={24}>手机号码:<span>{this.props.landlordPhone}</span></Col>
-                    <Col span={24}>房东名称:<span>{this.props.landlordName}</span></Col>
+                    <GridBar><p>房东信息:</p></GridBar>
+                    <GridBar><p>房东名称:</p><p>{this.props.landlordName}</p></GridBar>
+                    <GridBar><p>手机号码:</p><p>{this.props.landlordPhone}</p></GridBar>
                 </Row>
             </div>
         )
@@ -278,11 +330,11 @@ class HouseAllInf extends React.Component{
         return(
             <div>
                 <Row>
-                    <Col span={24}>房源信息<span></span></Col>
-                    <Col span={24}>地址:<span>{this.props.address}</span></Col>
-                    <Col span={24}>面积:<span>{this.props.area}</span><span>{this.props.areaType}</span></Col>
-                    <Col span={24}>简介:<span>{this.props.introduction}</span></Col>
-                    <Col span={24}>照片:<span>{this.props.imgArray}</span></Col>
+                    <GridBar><p>房源信息</p></GridBar>
+                    <GridBar><p>地址:</p><p>{this.props.address}</p></GridBar>
+                    <GridBar><p>面积:</p><p>{this.props.area}<span>{this.areaType}</span></p></GridBar>
+                    <GridBar><p>简介:</p><p>{this.props.introduction}</p></GridBar>
+                    <GridBar><p>照片:</p><p>{this.props.imgArray}</p></GridBar>
                 </Row>
             </div> 
         )
@@ -298,10 +350,10 @@ class DealInf extends React.Component{
         return(
             <div>
                 <Row>
-                    <Col span={24}>交易信息<span></span></Col>
-                    <Col span={24}>租赁方式:<span>{this.props.leaseMoney}</span>/<span>{this.props.leaseType}</span></Col>
-                    <Col span={24}>押金:<span>{this.props.cashDeposit}</span></Col>
-                    <Col span={24}>电子合同:<span>{this.props.electronicContract}</span></Col>
+                    <GridBar><p>交易信息</p></GridBar>
+                    <GridBar><p>租赁方式:</p><p>{this.props.leaseMoney}<span>{this.props.leaseType}</span></p></GridBar>
+                    <GridBar><p>押金:</p><p>{this.props.cashDeposit}</p></GridBar>
+                    <GridBar><p>电子合同:</p><p>{this.props.electronicContract}</p></GridBar>
                 </Row>
             </div>  
         )
