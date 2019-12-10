@@ -1,6 +1,6 @@
 import React from 'react';
 import Cookies from 'js-cookie'
-import { Icon, Row, Col, Button, DatePicker, Input } from 'antd';
+import { Icon, Row, Col, Button, DatePicker, Input, InputNumber, Select } from 'antd';
 import { houseLeaseInf, floatRight, gridBar, gridBarBorderTop } from '../css/houseLeaseInf.css'
 import { getHouseInfAPI1, postHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
@@ -9,6 +9,8 @@ import 'moment/locale/zh-cn';
 import {Avatar} from './public'
 
 import { Cascader } from 'antd';
+
+const {Option}  = Select
 
 const options = [
   {
@@ -49,10 +51,77 @@ function onChange(value) {
   console.log(value);
 }
 
-// ReactDOM.render(
-//   <Cascader options={options} onChange={onChange} placeholder="Please select" />,
-//   mountNode,
-// );
+
+//发布订阅模式
+class EventEmiter {
+    constructor() {
+        //维护一个对象
+        this._events = {
+
+        }
+    }
+    on(eventName, callback) {
+        if (this._events[eventName]) {
+            //如果有就放一个新的
+            this._events[eventName].push(callback);
+        } else {
+            //如果没有就创建一个数组
+            this._events[eventName] = [callback]
+        }
+    }
+    emit(eventName, ...rest) {
+        // console.log(...rest + 'rest的写法')
+        // alert(...rest)
+        if (this._events[eventName]) { //循环一次执行
+            this._events[eventName].forEach((item) => {
+                item.apply(this, rest)
+            });
+        }
+    }
+    removeListener(eventName, callback) {
+        alert(callback)
+        if (this._events[eventName]) {
+            //当前数组和传递过来的callback相等则移除掉
+            this._events[eventName] =
+                this._events[eventName].filter(item => item !== callback);
+        }
+    }
+    once(eventName, callback) {
+        function one() {
+            //在one函数运行原来的函数，只有将one清空
+            callback.apply(this, arguments);
+            //先绑定 执行后再删除
+            this.removeListener(eventName, one);
+        }
+        this.on(eventName, one);
+        //此时emit触发会执行此函数，会给这个函数传递rest参数
+    }
+}
+// class Man extends EventEmiter { }
+// let man = new Man()
+// function findGirl() {
+//     console.log('找新的女朋友')
+// }
+// function saveMoney() {
+//     console.log('省钱')
+//     console.log('arguments' + JSON.stringify(arguments));
+// }
+
+// man.on('失恋', saveMoney)
+// man.on('失恋', findGirl)
+
+// man.emit('失恋', ['wewe', 'jjj']);
+// man.emit('失恋', ['wewe', 'jjj']);
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -417,16 +486,65 @@ class DealInf extends React.Component{
     }
 }
 
+
+
+
+
+class InfManager{
+    constructor(inf){
+        this._inf = inf
+        this.callback = {}
+    }
+
+    //设置this._inf[key]得值然后触发回调函数
+    setInf(key, val){
+        this._inf[key] = val
+        let callback = this.callback[key]
+        for(let index in callback){
+            callback[index](this._inf[key])
+        }
+    }
+
+    getInf(){
+        return this._inf
+    }
+
+    //设置this._inf[key]的回调函数
+    listenerKey(key, callback){
+        if(key == null && key == undefined){
+            throw 'key非法'
+        }
+        if(callback == null && callback == undefined){
+            throw 'callback非法'
+        }
+        if(this.callback[key]){
+            this.callback[key].push(callback)
+        } else {
+            this.callback[key] = [callback]
+        }
+    }
+
+    getCallBack(){
+        return this.callback
+    }
+}
+
+
+
+
 // 房屋信息填写组件
 class HouseInfInput extends React.Component{
     constructor(props){
         super(props)
-        let params = {
-            coverImgName: '',
-            imgNameArray: new Array(),
-            houseInf: {}
+        this.params = {
+            houseAllInfInput: {},
+            dealInfInput: {},
+            rangePicker: {},
+            loading: false,
         }
-        this.handleChange = this.handleChange.bind(this)
+       this.infManager = new InfManager(this.params)
+       this.infManager.listenerKey('houseAllInfInput', (value)=>{console.log(value)})
+       this.click = this.click.bind(this)
     }
 
     handleChange(event){
@@ -444,17 +562,10 @@ class HouseInfInput extends React.Component{
     handleDateChange(event){
         
     }
-
-    imgGetRes(res){
-        this.params.imgNameArray = res
-        console.log(res)
+    click(){
+        this.infManager.setInf('loading', true)
+        console.log(this.infManager.getInf())
     }
-
-    coverImgGetRes(res){
-        this.params.coverImgName = res
-        console.log(res)
-    }
-
     toSetHouseLeaseInf(){
         let params = this.params
         postHouseInfAPI1(
@@ -471,15 +582,15 @@ class HouseInfInput extends React.Component{
         return(
             <div>
                 <Row>
-                    <HouseAllInfInput imgGetRes={this.imgGetRes} coverImgGetRes={this.coverImgGetRes} />
+                    <HouseAllInfInput infManager={this.infManager} />
                     <GridBarBorder />
-                    <DealInfInput  />
+                    <DealInfInput  infManager={this.infManager} />
                     <GridBarBorder />
                     <Col span={24}>
-                        <RangePicker defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
+                        <RangePicker  infManager={this.infManager}   defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
                     </Col>
                     <Col span={24}>
-                        <Button type="primary" block>租赁</Button>
+                        <Button type="primary" block onClick={this.click}>租赁</Button>
                     </Col>
                 </Row>
             </div> 
@@ -492,33 +603,92 @@ class HouseAllInfInput extends React.Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        this.params = {
+            title: '标题',
+            area: '面积',
+            areaType: '面积类型',
+            city: '城市',
+            district: '区',
+            address: '详细地址',
+            profile: '介绍',
+            imgArray: '房源照片组',
+            coverImg: '房源封面'
+        }
+        this.changeInfManager = this.changeInfManager.bind(this)
+        this.titleChange = this.titleChange.bind(this)
+        this.areaTypeChange = this.areaTypeChange.bind(this)
+        this.cascaderChange = this.cascaderChange.bind(this)
+        this.addressChange = this.addressChange.bind(this)
+        this.profileChange = this.profileChange.bind(this)
+
+        this.infManager = this.props.infManager
+        this.infManager.listenerKey('loading', this.changeInfManager)  
     }
     handleChange(event){
-
+        this.props.handleChange(event)
+    }
+    titleChange(event){
+        this.params.title = event.target.value
+        console.log(this.params)
+    }
+    areaChange=(value)=>{
+        this.params.area = value
+    }
+    areaTypeChange(value, options){
+        console.log( console.log('-----------------',value,' areaType ',options,'-------------------'))
+    }
+    cascaderChange(value, options){
+        console.log('-----------------',value,' cascader ',options,'-------------------')
+       
+    }
+    addressChange(event){
+        this.params.address = event.target.value
+        console.log(event.target.value)
+    }
+    profileChange(event){
+        this.params.profile = event.target.value
+    }
+    imgGetRes(res){
+        this.params.imgArray = res
+    }
+    coverImgGetRes(res){
+        this.params.coverImg = res
+    }
+    changeInfManager(value){
+        if(value)
+            this.infManager.setInf('houseAllInfInput', this.params)
     }
     render(){
         return(
             <div>
                 <Row>
                     <GridBar><p>房源信息</p></GridBar>
-                    <GridBar><p>标题:</p><Input placeholder="标题" /></GridBar>
-                    <GridBar><p>面积:</p><Input placeholder="" /></GridBar>
+                    <GridBar><p>标题:</p><Input placeholder="标题" onChange={this.titleChange}/></GridBar>
+                    <GridBar>
+                        <p>面积:</p><InputNumber min={0} max={10000000}  onChange={this.areaChange}/>
+                        <div>
+                            <Select defaultValue="sqm" style={{ width: 120 }} onChange={this.areaTypeChange}>
+                                <Option value="sqm">平方米</Option>
+                                <Option value="sqf" disabled>平方英尺</Option>
+                            </Select>
+                        </div>
+                        </GridBar>
                     <Col span={24}>
                         <Row>
                             <Col span={4}>地址:</Col>
-                            <Col span={9}><Cascader options={options} onChange={onChange} placeholder="Please select" /></Col>
-                            <Col span={9}><Input placeholder="如：百草路1号-10栋-404" /></Col>
+                            <Col span={9}><Cascader options={options} placeholder="Please select" onChange={this.cascaderChange} /></Col>
+                            <Col span={9}><Input placeholder="如：百草路1号-10栋-404" onChange={this.addressChange}/></Col>
                             <Col span={2}></Col>
                         </Row>
                     </Col>
                     <Col span={24}>
                         <Row>
                             <Col span={4}>简介:</Col>
-                            <Col span={18}><Input.TextArea rows={10}/></Col>
+                            <Col span={18}><Input.TextArea rows={10} onChange={this.profileChange}/></Col>
                             <Col span={2}></Col>
                         </Row>
                     </Col>
-                    <GridBar><p>照片:</p><Avatar getResponse={this.props.imgGetRes}/><p>封面照片</p><Avatar getResponse={this.props.coverImgGetRes}/></GridBar>
+                    <GridBar><p>照片:</p><Avatar getResponse={this.imgGetRes}/><p>封面照片</p><Avatar getResponse={this.coverImgGetRes}/></GridBar>
                 </Row>
             </div> 
         )

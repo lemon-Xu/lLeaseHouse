@@ -52,7 +52,8 @@ module.exports = {
                         [
                             "import",
                             { libraryName: "antd", style: 'css' }
-                        ] //antd按需加载
+                        ], //antd按需加载
+                        "transform-class-properties"
                     ]
                 },
             },
