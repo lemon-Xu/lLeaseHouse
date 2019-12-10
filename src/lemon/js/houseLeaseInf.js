@@ -2,10 +2,11 @@ import React from 'react';
 import Cookies from 'js-cookie'
 import { Icon, Row, Col, Button, DatePicker, Input } from 'antd';
 import { houseLeaseInf, floatRight, gridBar, gridBarBorderTop } from '../css/houseLeaseInf.css'
-import { getHouseInfAPI1 } from './ajaxAPI1'
+import { getHouseInfAPI1, postHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
+import {Avatar} from './public'
 
 import { Cascader } from 'antd';
 
@@ -420,16 +421,59 @@ class DealInf extends React.Component{
 class HouseInfInput extends React.Component{
     constructor(props){
         super(props)
+        let params = {
+            coverImgName: '',
+            imgNameArray: new Array(),
+            houseInf: {}
+        }
+        this.handleChange = this.handleChange.bind(this)
     }
+
+    handleChange(event){
+
+    }
+
+    handleHouseAllInputChange(event){
+        
+    }
+
+    handleDealInfInputChange(event){
+        
+    }
+
+    handleDateChange(event){
+        
+    }
+
+    imgGetRes(res){
+        this.params.imgNameArray = res
+        console.log(res)
+    }
+
+    coverImgGetRes(res){
+        this.params.coverImgName = res
+        console.log(res)
+    }
+
+    toSetHouseLeaseInf(){
+        let params = this.params
+        postHouseInfAPI1(
+            ()=>{},
+            ()=>{},
+            params
+        )
+        console.log(params)
+
+    }
+
+
     render(){
         return(
             <div>
                 <Row>
-                    <HouseAllInfInput />
+                    <HouseAllInfInput imgGetRes={this.imgGetRes} coverImgGetRes={this.coverImgGetRes} />
                     <GridBarBorder />
-                    <HouseAllInf  />
-                    <GridBarBorder />
-                    <DealInf  />
+                    <DealInfInput  />
                     <GridBarBorder />
                     <Col span={24}>
                         <RangePicker defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
@@ -447,6 +491,10 @@ class HouseInfInput extends React.Component{
 class HouseAllInfInput extends React.Component{
     constructor(props){
         super(props)
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange(event){
+
     }
     render(){
         return(
@@ -470,7 +518,7 @@ class HouseAllInfInput extends React.Component{
                             <Col span={2}></Col>
                         </Row>
                     </Col>
-                    <GridBar><p>照片:</p></GridBar>
+                    <GridBar><p>照片:</p><Avatar getResponse={this.props.imgGetRes}/><p>封面照片</p><Avatar getResponse={this.props.coverImgGetRes}/></GridBar>
                 </Row>
             </div> 
         )
@@ -481,10 +529,21 @@ class HouseAllInfInput extends React.Component{
 class DealInfInput extends React.Component{
     constructor(props){
         super(props)
+        this.handleChange = this.handleChange.bind(this)
+    }
+    handleChange(event){
+
     }
     render(){
         return(
-            <div></div>
+            <div>
+                <Row>
+                    <GridBar><p>交易信息</p></GridBar>
+                    <GridBar><p>租赁方式:</p><Input placeholder="month" /><Input placeholder="month" /><p></p></GridBar>
+                    <GridBar><p>押金:</p><Input placeholder="付一压二" /></GridBar>
+                    <GridBar><p>电子合同:</p><Input placeholder="付一压二" /></GridBar>
+                </Row>
+            </div>
         )
     }
 }

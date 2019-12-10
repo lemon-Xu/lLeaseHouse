@@ -23,5 +23,28 @@ router.get('',function(req, res, next) {
   })
 })
 
+router.post('',function(req, res, next) {
+  console.log('---post')
+  console.log(req.query)
+  console.log(req.body)
+  // var inf = {
+  //   House_IsBan: req.query.House_IsBan,
+  //   House_ID: req.query.House_ID,
+  //   Users_Name: req.query.Users_Name
+  // }
+  // var sql = session.getSQL('selectHouse', inf)
+  
+  // console.log(sql)
+  // session.query(sql, (err, rows, fields)=>{
+  //   if(rows == null && rows == undefined)
+  //     res.end('查询错误')
+  //   else {
+  //     res.json(rows)
+  //   }
+
+  // })
+  res.end()
+})
+
 
 module.exports = router;

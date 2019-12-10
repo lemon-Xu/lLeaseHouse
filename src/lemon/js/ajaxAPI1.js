@@ -86,6 +86,20 @@ const postHouseInfImgAPI1 = (resFun, errFun, params)=>{
     })
 }
 
+const postHouseInfAPI1 = (resFun, errFun, params)=>{
+  axios.get('/api1/HouseInfAPI1', {
+    "params": params
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
+}
 
 
-export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, }
+
+export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, postHouseInfAPI1}
