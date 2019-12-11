@@ -6,7 +6,7 @@ import { getHouseInfAPI1, postHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import {Avatar} from './public'
+import { Avatar, addressCascaderOptions} from './public'
 
 import { Cascader } from 'antd';
 
@@ -670,16 +670,16 @@ class HouseAllInfInput extends React.Component{
                     <GridBar>
                         <p>面积:</p><InputNumber min={0} max={10000000}  onChange={this.areaChange}/>
                         <div>
-                            <Select defaultValue="sqm" style={{ width: 120 }} onChange={this.areaTypeChange}>
-                                <Option value="sqm">平方米</Option>
-                                <Option value="sqf" disabled>平方英尺</Option>
+                            <Select placeholder="面积类型" style={{ width: 120 }} onSelect={this.areaTypeChange}>
+                                <Option value="平方米">平方米</Option>
+                                <Option value="平方英尺" disabled>平方英尺</Option>
                             </Select>
                         </div>
                         </GridBar>
                     <Col span={24}>
                         <Row>
                             <Col span={4}>地址:</Col>
-                            <Col span={9}><Cascader options={options} placeholder="Please select" onChange={this.cascaderChange} /></Col>
+                            <Col span={9}><Cascader options={addressCascaderOptions} placeholder="Please select" onChange={this.cascaderChange} /></Col>
                             <Col span={9}><Input placeholder="如：百草路1号-10栋-404" onChange={this.addressChange}/></Col>
                             <Col span={2}></Col>
                         </Row>
