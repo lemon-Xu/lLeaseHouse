@@ -539,11 +539,18 @@ class HouseInfInput extends React.Component{
         this.params = {
             houseAllInfInput: {},
             dealInfInput: {},
-            rangePicker: {},
             loading: false,
+            num: 0
         }
        this.infManager = new InfManager(this.params)
        this.infManager.listenerKey('houseAllInfInput', (value)=>{console.log(value)})
+       console.log('-----inf===',this.infManager.getInf().num)
+       this.infManager.listenerKey('num', (value)=>{
+           if(this.infManager.getInf().num == 2){
+               console.log('开始请求后端添加房屋信息')
+               this.infManager.setInf('num', 0)
+           }
+        })
     }
 
     handleChange(event){
@@ -587,9 +594,6 @@ class HouseInfInput extends React.Component{
                     <DealInfInput  infManager={this.infManager} />
                     <GridBarBorder />
                     <Col span={24}>
-                        <RangePicker  infManager={this.infManager}   defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
-                    </Col>
-                    <Col span={24}>
                         <Button type="primary" block onClick={this.click}>租赁</Button>
                     </Col>
                 </Row>
@@ -608,11 +612,11 @@ class HouseAllInfInput extends React.Component{
             area: null,
             areaType: null,
             city: null,
-            district: null,
             address: null,
             profile: null,
             imgArray: null,
-            coverImg: null
+            coverImg: null,
+            province: null
         }
         this.changeInfManager = this.changeInfManager.bind(this)
         this.titleChange = this.titleChange.bind(this)
@@ -634,13 +638,14 @@ class HouseAllInfInput extends React.Component{
     areaChange=(value)=>{
         this.params.area = value
     }
-    areaTypeChange(value, options){
-        console.log( console.log('-----------------',value,' areaType ',options,'-------------------'))
+    areaTypeChange=(value, options)=>{
+        this.params.areaType = value
     }
     cascaderChange(value, options){
-        if(value.length == 2)
-            this.params.city = value[0]
-            this.params.profile = value[1]
+        if(value.length == 3)
+            this.params.province = value[0]
+            this.params.city = value[1]
+            this.params.profile = value[2]
         console.log('-----------------',value,' cascader ',options,'-------------------')
        
     }
@@ -657,9 +662,11 @@ class HouseAllInfInput extends React.Component{
     coverImgGetRes=(res)=>{
         this.params.coverImg = res
     }
-    changeInfManager(value){
-        if(value)
+    changeInfManager=(value)=>{
+        if(value){
             this.infManager.setInf('houseAllInfInput', this.params)
+            this.infManager.setInf('num',this.infManager.getInf().num + 1)
+        }
     }
     render(){
         return(
@@ -679,8 +686,8 @@ class HouseAllInfInput extends React.Component{
                     <Col span={24}>
                         <Row>
                             <Col span={4}>地址:</Col>
-                            <Col span={9}><Cascader options={addressCascaderOptions} placeholder="Please select" onChange={this.cascaderChange} /></Col>
-                            <Col span={9}><Input placeholder="如：百草路1号-10栋-404" onChange={this.addressChange}/></Col>
+                            <Col span={10}><Cascader size={"large"} options={addressCascaderOptions} placeholder="Please select" onChange={this.cascaderChange} /></Col>
+                            <Col span={8}><Input placeholder="如：百草路1号-10栋-404" onChange={this.addressChange}/></Col>
                             <Col span={2}></Col>
                         </Row>
                     </Col>
@@ -734,8 +741,10 @@ class DealInfInput extends React.Component{
     }
 
     changeInfManager=(value)=>{
-        if(value)
+        if(value){
             this.infManager.setInf('dealInfInput', this.params)
+            this.infManager.setInf('num',this.infManager.getInf().num + 1)
+        }
     }
 
     render(){

@@ -138,7 +138,7 @@ function getProvince(addressData, receiverOptions){
     let province = addressData[index].name
     let cityArray = addressData[index].city
     let value = province
-    let label = province +'-label'
+    let label = province
     getCity(cityArray, children)
     let params = {
       value: value,
@@ -155,7 +155,7 @@ function getCity(cityArray, receiverCityArray){
     let areaArray = cityArray[indexC].area
     let children = []
     let value = city
-    let label = city + '-label'
+    let label = city
     getArea(areaArray, children)
     let params = {
       value: value,
@@ -169,7 +169,7 @@ function getArea(areaArray, receiverAreaArray){
   for(let indexA in areaArray){
     let area = areaArray[indexA]
     let value = area
-    let label = area + '-label'
+    let label = area
     let params = {
       value: value,
       label: label
