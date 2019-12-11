@@ -544,7 +544,6 @@ class HouseInfInput extends React.Component{
         }
        this.infManager = new InfManager(this.params)
        this.infManager.listenerKey('houseAllInfInput', (value)=>{console.log(value)})
-       this.click = this.click.bind(this)
     }
 
     handleChange(event){
@@ -562,7 +561,8 @@ class HouseInfInput extends React.Component{
     handleDateChange(event){
         
     }
-    click(){
+    click=()=>{
+        console.log(this)
         this.infManager.setInf('loading', true)
         console.log(this.infManager.getInf())
     }
@@ -604,15 +604,15 @@ class HouseAllInfInput extends React.Component{
         super(props)
         this.handleChange = this.handleChange.bind(this)
         this.params = {
-            title: '标题',
-            area: '面积',
-            areaType: '面积类型',
-            city: '城市',
-            district: '区',
-            address: '详细地址',
-            profile: '介绍',
-            imgArray: '房源照片组',
-            coverImg: '房源封面'
+            title: null,
+            area: null,
+            areaType: null,
+            city: null,
+            district: null,
+            address: null,
+            profile: null,
+            imgArray: null,
+            coverImg: null
         }
         this.changeInfManager = this.changeInfManager.bind(this)
         this.titleChange = this.titleChange.bind(this)
@@ -638,6 +638,9 @@ class HouseAllInfInput extends React.Component{
         console.log( console.log('-----------------',value,' areaType ',options,'-------------------'))
     }
     cascaderChange(value, options){
+        if(value.length == 2)
+            this.params.city = value[0]
+            this.params.profile = value[1]
         console.log('-----------------',value,' cascader ',options,'-------------------')
        
     }
@@ -648,10 +651,10 @@ class HouseAllInfInput extends React.Component{
     profileChange(event){
         this.params.profile = event.target.value
     }
-    imgGetRes(res){
+    imgGetRes=(res)=>{
         this.params.imgArray = res
     }
-    coverImgGetRes(res){
+    coverImgGetRes=(res)=>{
         this.params.coverImg = res
     }
     changeInfManager(value){
@@ -700,18 +703,49 @@ class DealInfInput extends React.Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+        this.infManager = this.props.infManager
+        this.params = {
+            leaseType: null,
+            leaseMoney: null,
+            cashDeposit: null,
+            electronicContract: null,
+        }
+        this.infManager.setInf('dealInfInput', this.params)
+        this.infManager.listenerKey('loading', this.changeInfManager)
+
     }
     handleChange(event){
 
     }
+    leaseType = (event)=>{
+        this.params.leaseType = event.target.value
+    }
+
+    leaseMoney = (value)=>{
+        this.params.leaseMoney = value
+    }
+
+    cashDeposit = (event)=>{
+        this.params.cashDeposit = event.target.value
+    }
+
+    electronicContract = (event)=>{
+        this.params.electronicContract = event.target.value
+    }
+
+    changeInfManager=(value)=>{
+        if(value)
+            this.infManager.setInf('dealInfInput', this.params)
+    }
+
     render(){
         return(
             <div>
                 <Row>
                     <GridBar><p>交易信息</p></GridBar>
-                    <GridBar><p>租赁方式:</p><Input placeholder="month" /><Input placeholder="month" /><p></p></GridBar>
-                    <GridBar><p>押金:</p><Input placeholder="付一压二" /></GridBar>
-                    <GridBar><p>电子合同:</p><Input placeholder="付一压二" /></GridBar>
+                    <GridBar><p>租赁方式:</p><InputNumber placeholder="800" onChange={this.leaseMoney} /><Input placeholder="month" onChange={this.leaseType} /><p></p></GridBar>
+                    <GridBar><p>押金:</p><Input placeholder="付一压二" onChange={this.cashDeposit}/></GridBar>
+                    <GridBar><p>电子合同:</p><Input placeholder="无" onChange={this.electronicContract}/></GridBar>
                 </Row>
             </div>
         )
