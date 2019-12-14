@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Row, Col, Button, DatePicker, Upload } from 'antd';
+import { Icon, Row, Col, Button, DatePicker, Upload, Modal } from 'antd';
 import { gridBar } from '../css/houseLeaseInf.css'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -177,4 +177,94 @@ function getArea(areaArray, receiverAreaArray){
     receiverAreaArray.push(params)
   }
 }
-export { Avatar, addressCascaderOptions }
+
+
+
+class PicturesWall extends React.Component {
+  state = {
+    previewVisible: false,
+    previewImage: '',
+    fileList: [],
+  };
+
+  handleCancel = () => this.setState({ previewVisible: false });
+
+  getResponse=(res)=> {
+    if (typeof (this.props.getResponse) == 'function')
+      this.props.getResponse(res)
+    else if (typeof (this.props.getResponse) != null) {
+      throw 'getResponse不是一个函数'
+    }
+  }
+
+  handlePreview = async file => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+
+    this.setState({
+      previewImage: file.url || file.preview,
+      previewVisible: true,
+    });
+  };
+
+  handleChange = ({ fileList }) => {
+    console.log(fileList)
+    let responseArray = new Array()
+    for(let index in fileList){
+      responseArray.push(fileList[index].response)
+    }
+    console.log(responseArray)
+    this.getResponse(responseArray)
+    this.setState({ fileList })
+};
+
+  beforeUpload(file, fileList) {
+    console.log(file)
+    console.log(fileList)
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!');
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2;
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!');
+    }
+    return isJpgOrPng && isLt2M;
+  }
+
+  onRemove(file){
+    console.log(file)
+    return true
+  }
+
+  render() {
+    const { previewVisible, previewImage, fileList } = this.state;
+    const uploadButton = (
+      <div>
+        <Icon type="plus" />
+        <div className="ant-upload-text">Upload</div>
+      </div>
+    );
+    return (
+      <div className="clearfix">
+        <Upload
+          action="http://localhost:3000/api1/img"
+          listType="picture-card"
+          fileList={fileList}
+          onPreview={this.handlePreview}
+          onChange={this.handleChange}
+          beforeUpload={this.beforeUpload}
+          onRemove={this.onRemove}
+        >
+          {fileList.length >= 8 ? null : uploadButton}
+        </Upload>
+        <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+          <img alt="example" style={{ width: '100%' }} src={previewImage} />
+        </Modal>
+      </div>
+    );
+  }
+}
+
+export { Avatar, addressCascaderOptions, PicturesWall }

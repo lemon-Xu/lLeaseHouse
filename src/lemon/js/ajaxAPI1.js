@@ -87,7 +87,7 @@ const postHouseInfImgAPI1 = (resFun, errFun, params)=>{
 }
 
 const postHouseInfAPI1 = (resFun, errFun, params)=>{
-  axios.get('/api1/HouseInfAPI1', {
+  axios.post('/api1/houseInf', {
     "params": params
   })
     .then(function (res) {

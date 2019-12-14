@@ -6,7 +6,7 @@ import { getHouseInfAPI1, postHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import { Avatar, addressCascaderOptions} from './public'
+import { Avatar, addressCascaderOptions, PicturesWall } from './public'
 
 import { Cascader } from 'antd';
 
@@ -548,6 +548,11 @@ class HouseInfInput extends React.Component{
        this.infManager.listenerKey('num', (value)=>{
            if(this.infManager.getInf().num == 2){
                console.log('开始请求后端添加房屋信息')
+               postHouseInfAPI1(
+                   ()=>{console.log()},
+                   ()=>{},
+                   this.infManager.getInf()
+               )
                this.infManager.setInf('num', 0)
            }
         })
@@ -607,6 +612,11 @@ class HouseAllInfInput extends React.Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this)
+
+        if(Cookies.get('usersID') == undefined){
+            alert('请先登陆')
+            window.location.href = '#/login'
+        }
         this.params = {
             title: null,
             area: null,
@@ -616,7 +626,9 @@ class HouseAllInfInput extends React.Component{
             profile: null,
             imgArray: null,
             coverImg: null,
-            province: null
+            province: null,
+            district: null,
+            usersID: Cookies.get('usersID')
         }
         this.changeInfManager = this.changeInfManager.bind(this)
         this.titleChange = this.titleChange.bind(this)
@@ -645,7 +657,7 @@ class HouseAllInfInput extends React.Component{
         if(value.length == 3)
             this.params.province = value[0]
             this.params.city = value[1]
-            this.params.profile = value[2]
+            this.params.district = value[2]
         console.log('-----------------',value,' cascader ',options,'-------------------')
        
     }
@@ -698,7 +710,14 @@ class HouseAllInfInput extends React.Component{
                             <Col span={2}></Col>
                         </Row>
                     </Col>
-                    <GridBar><p>照片:</p><Avatar getResponse={this.imgGetRes}/><p>封面照片</p><Avatar getResponse={this.coverImgGetRes}/></GridBar>
+                    <GridBar><p>封面照片:</p><Avatar getResponse={this.coverImgGetRes}/></GridBar>
+                    <Col span={24}>
+                        <Row>
+                            <Col span={4}>房屋照片</Col>
+                            <Col span={18}><PicturesWall getResponse={this.imgGetRes}/></Col>
+                            <Col span={2}></Col>
+                        </Row>
+                    </Col>
                 </Row>
             </div> 
         )

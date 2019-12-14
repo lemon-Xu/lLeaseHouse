@@ -47,7 +47,7 @@ class CentreContent extends React.Component{
                     <Route exact path="/" component={Home} />
                     <Route exact path="/home" component={HouseBriefInfArray} />
                     <Route exact path="/renting/:houseID/:usersID" component={HouseInf} />
-                    <Route exact path="/rentOut" component={HouseInfInput} />
+                    <Route exact path="/rentOut/" component={HouseInfInput} />
                     <Route exact path="/community" component={Information} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
