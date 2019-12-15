@@ -570,8 +570,12 @@ class HouseInfInput extends React.Component{
            if(this.infManager.getInf().num == 2){
                console.log('开始请求后端添加房屋信息')
                postHouseInfAPI1(
-                   ()=>{console.log()},
-                   ()=>{},
+                   (res)=>{
+                       if(res.data!= '错误'){
+                           alert('房屋信息填写成功')
+                       }
+                   },
+                   (err)=>{},
                    this.infManager.getInf()
                )
                this.infManager.setInf('num', 0)

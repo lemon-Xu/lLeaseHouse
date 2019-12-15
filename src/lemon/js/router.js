@@ -79,9 +79,10 @@ class NavigationBar extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            current: 'home',
+            current: this.props.match.params.navigation,
         };
         this.handleClick = this.handleClick.bind(this)
+        console.log(this.props.match.params.navigation)
     }
 
     handleClick(e) {
@@ -153,7 +154,9 @@ class HeaderBar extends React.Component {
                                 4
             </Col>
                             <Col className="gutter-row" span={12}>
-                                <NavigationBar />
+                                <HashRouter>
+                                    <Route path="/:navigation" component={NavigationBar} />
+                                </HashRouter>
                             </Col>
                             <Col className="gutter-row" span={4} className={headerBar}>
                                 <Icon type="bell" />
