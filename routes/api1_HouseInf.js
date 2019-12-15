@@ -35,6 +35,7 @@ router.post('',function(req, res, next) {
     House_AreaType: houseInf.areaType,
     House_Profile: houseInf.profile,
     House_Province: houseInf.province,
+    House_City: houseInf.city,
     House_District: houseInf.district,
     House_Address: houseInf.address,
     House_Headline: houseInf.title,
@@ -43,16 +44,47 @@ router.post('',function(req, res, next) {
     House_ElectronicContractTemplate: dealInf.electronicContract,
     House_CashDeposit: dealInf.cashDeposit
   }
-  let param2 = {
-    coverImg: houseInf.coverImg.filename 
-  }
-  let param3 = {
-    imgArray: houseInf.imgArray
-  }
   
-  console.log(param)
-  console.log(param2)
-  console.log(param3)
+
+  let sql = session.getSQL('insertHouse', param)
+ 
+  console.log(sql)
+  session.query(sql, (err, rows, fields)=>{ // 添加房屋信息
+    if(rows == null && rows == undefined)
+      res.end('房屋信息添加错误')
+    else {
+      let houseId = rows.insertId
+      let param2 = {
+        HouseCoverImg_House_ID: houseId,
+        HouseCoverImg_FileName: houseInf.coverImg.filename
+      }
+      param2.HouseImg_House_ID = houseId
+      let sql2 = session.getSQL('insertHouseCoverImg', param2)
+      console.log(sql2)
+      session.query(sql2,(err, rows, fields)=>{ // 添加房屋封面照片
+        // console.log(err)
+        // console.log(rows)
+        // console.log(fields)
+      })
+      for(let index in houseInf.imgArray){
+        let filename = houseInf.imgArray[index].filename
+        let param3 = {
+          HouseImg_House_ID: houseId,
+          HouseImg_FileName: filename
+        }
+        let sql3 = session.getSQL('insertHouseImg', param3)
+        console.log(sql3)
+        session.query(sql3,(err, rows, fields)=>{ // 添加房屋照片
+          // console.log(err)
+          // console.log(rows)
+          // console.log(fields)
+        })
+      }
+      res.json(rows)
+    }
+
+  })
+
   // var inf = {
   //   House_IsBan: req.query.House_IsBan,
   //   House_ID: req.query.House_ID,
@@ -69,7 +101,7 @@ router.post('',function(req, res, next) {
   //   }
 
   // })
-  res.end()
+  // res.end()
 })
 
 

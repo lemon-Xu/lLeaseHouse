@@ -109,6 +109,72 @@
             }
         ]
     },
+    "insertHouse":{
+        "type": "insert into",
+        "sql": " INSERT INTO House",
+        "values": [
+            {
+                "logic": "House_Users_ID != null",
+                "sql": "#{House_Users_ID}"
+            },
+            {
+                "logic": "House_Area != null",
+                "sql": "#{House_Area}"
+            },
+            {
+                "logic": "House_AreaType != null",
+                "sql": "#{House_AreaType}"
+            },
+            {
+                "logic": "House_Profile != null",
+                "sql": "#{House_Profile}"
+            },
+            {
+                "logic": "House_Province != null",
+                "sql": "#{House_Province}"
+            },
+            {
+                "logic": "House_City != null",
+                "sql": "#{House_City}"
+            },
+            {
+                "logic": "House_District != null",
+                "sql": "#{House_District}"
+            },
+            {
+                "logic": "House_Address != null",
+                "sql": "#{House_Address}"
+            },
+            {
+                "logic": "House_Headline != null",
+                "sql": "#{House_Headline}"
+            },
+            {
+                "logic": "House_IsBan != null",
+                "sql": "#{House_IsBan}"
+            },
+            {
+                "logic": "House_Mode != null",
+                "sql": "#{House_Mode}"
+            },
+            {
+                "logic": "House_LeaseMoney != null",
+                "sql": "#{House_LeaseMoney}"
+            },
+            {
+                "logic": "House_CashDeposit != null",
+                "sql": "#{House_CashDeposit}"
+            },
+            {
+                "logic": "House_IsOpen != null",
+                "sql": "#{House_IsOpen}"
+            },
+            {
+                "logic": "House_ElectronicContractTemplate != null",
+                "sql": "#{House_ElectronicContractTemplate}"
+            }
+        ]
+    },
     "insertUsersFollow": {
         "type": "insert into",
         "sql": " INSERT INTO UsersFollow",
@@ -122,5 +188,53 @@
     "selectUsersFollow": {
         "type": "select",
         "sql": " SELECT Users.* FROM UsersFollow, Users WHERE UsersFollow_Users_ID = Users_ID"
+    },
+    "selectHouseImg": {
+        "type": "select",
+        "sql": "SELECT * FROM HouseImg",
+        "where":[
+            {
+                "logic": "HouseImg_House_ID != null",
+                "sql": "#{HouseImg_House_ID}"
+            }
+        ]
+    },
+    "insertHouseImg": {
+        "type": "insert into",
+        "sql": " INSERT INTO HouseImg",
+        "values": [
+            {
+                "logic": "HouseImg_House_ID != null",
+                "sql": "#{HouseImg_House_ID}"
+            },
+            {
+                "logic": "HouseImg_FileName != null",
+                "sql": "#{HouseImg_FileName}"
+            }
+        ]
+    },
+    "selectHouseCoverImg": {
+        "type": "select",
+        "sql": "SELECT * FROM HouseCoverImg",
+        "where":[
+            {
+                "logic": "HouseCoverImg_House_ID != null",
+                "sql": "#{HouseCoverImg_House_ID}"
+            }
+        ]
+    },
+    "insertHouseCoverImg": {
+        "type": "insert into",
+        "sql": " INSERT INTO HouseCoverImg",
+        "values": [
+            {
+                "logic": "HouseCoverImg_House_ID != null",
+                "sql": "#{HouseCoverImg_House_ID}"
+            },
+            {
+                "logic": "HouseCoverImg_FileName != null",
+                "sql": "#{HouseCoverImg_FileName}"
+            }
+        ]
     }
 }
