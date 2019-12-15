@@ -100,6 +100,32 @@ const postHouseInfAPI1 = (resFun, errFun, params)=>{
     })
 }
 
+const getHouseImgArray = (resFun, errFun, params)=>{
+  axios.post('/api1/houseInf', {
+    "params": params
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
+}
 
+const getHouseCoverImg = (resFun, errFun, params)=>{
+  axios.post('/api1/houseInf', {
+    "params": params
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
+}
 
 export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, postHouseInfAPI1}

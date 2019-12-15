@@ -208,7 +208,7 @@ class SqlNodeParser{
         // if(this.foreach != null)
         //     this.retSQL += this.foreach.getRetSQL(parameter)
 
-        let ret = this.sql + retSQL
+        let ret = this.sql +' ' + retSQL
         this.logger.debug({
             "id": this.id,
             "parameter": parameter,

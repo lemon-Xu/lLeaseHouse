@@ -177,7 +177,7 @@
     },
     "insertUsersFollow": {
         "type": "insert into",
-        "sql": " INSERT INTO UsersFollow",
+        "sql": " INSERT INTO UsersFollow ",
         "values": [
             {
                 "logic": "UsersFollow_Users_ID != null",
@@ -187,21 +187,21 @@
     },
     "selectUsersFollow": {
         "type": "select",
-        "sql": " SELECT Users.* FROM UsersFollow, Users WHERE UsersFollow_Users_ID = Users_ID"
+        "sql": " SELECT Users.* FROM UsersFollow, Users WHERE UsersFollow_Users_ID = Users_ID "
     },
     "selectHouseImg": {
         "type": "select",
-        "sql": "SELECT * FROM HouseImg",
+        "sql": "SELECT * FROM HouseImg ",
         "where":[
             {
                 "logic": "HouseImg_House_ID != null",
-                "sql": "#{HouseImg_House_ID}"
+                "sql": "AND HouseImg_House_ID = #{HouseImg_House_ID}"
             }
         ]
     },
     "insertHouseImg": {
         "type": "insert into",
-        "sql": " INSERT INTO HouseImg",
+        "sql": " INSERT INTO HouseImg ",
         "values": [
             {
                 "logic": "HouseImg_House_ID != null",
@@ -215,17 +215,17 @@
     },
     "selectHouseCoverImg": {
         "type": "select",
-        "sql": "SELECT * FROM HouseCoverImg",
+        "sql": "SELECT * FROM HouseCoverImg ",
         "where":[
             {
                 "logic": "HouseCoverImg_House_ID != null",
-                "sql": "#{HouseCoverImg_House_ID}"
+                "sql": "AND HouseCoverImg_House_ID = #{HouseCoverImg_House_ID}"
             }
         ]
     },
     "insertHouseCoverImg": {
         "type": "insert into",
-        "sql": " INSERT INTO HouseCoverImg",
+        "sql": " INSERT INTO HouseCoverImg ",
         "values": [
             {
                 "logic": "HouseCoverImg_House_ID != null",

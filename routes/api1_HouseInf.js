@@ -12,12 +12,53 @@ router.get('',function(req, res, next) {
   }
   var sql = session.getSQL('selectHouse', inf)
   
-  console.log(sql)
   session.query(sql, (err, rows, fields)=>{
     if(rows == null && rows == undefined)
       res.end('查询错误')
     else {
-      res.json(rows)
+      let retJson = rows
+      let num2 = retJson.length
+      let num3 = retJson.length
+      for(let index in retJson){
+        let houseID = rows[index].House_ID
+        let inf2 = {
+          HouseImg_House_ID: houseID
+        }
+        let inf3 = {
+          HouseCoverImg_House_ID: houseID
+        }
+        let sql2 = session.getSQL('selectHouseImg', inf2)
+        let sql3 = session.getSQL('selectHouseCoverImg', inf3)
+        session.query(sql2, (err, rows,fields)=>{
+          // console.log(sql2)
+          // console.log(err)
+          // console.log(rows)
+          // console.log(fields)
+          retJson[index].houseImg = rows
+          num2--
+          if(num2 == 0 && num3 == 0){
+            res.json(retJson)
+            num2--
+            num3--
+          }
+        })
+        session.query(sql3, (err, rows, fields)=>{
+          // console.log(sql3)
+          // console.log(err)
+          // console.log(rows)
+          // console.log(fields)
+          retJson[index].houseCoverImg = rows
+          num3--
+          if(num2 == 0 && num3 == 0){
+            res.json(retJson)
+            num2--
+            num3--
+          }
+        })
+      }
+      // console.log(retJson)
+      // let sql2 = session.getSQL('selectHouseCoverImg',)
+      
     }
 
   })

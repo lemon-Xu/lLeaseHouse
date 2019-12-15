@@ -181,11 +181,15 @@ function getArea(areaArray, receiverAreaArray){
 
 
 class PicturesWall extends React.Component {
-  state = {
-    previewVisible: false,
-    previewImage: '',
-    fileList: [],
-  };
+  constructor(props){
+    super(props)
+    this.state = {
+      previewVisible: false,
+      previewImage: '',
+      fileList: []
+    }
+    console.log(this.state)
+  }
 
   handleCancel = () => this.setState({ previewVisible: false });
 
@@ -246,6 +250,7 @@ class PicturesWall extends React.Component {
         <div className="ant-upload-text">Upload</div>
       </div>
     );
+    
     return (
       <div className="clearfix">
         <Upload
@@ -267,4 +272,44 @@ class PicturesWall extends React.Component {
   }
 }
 
-export { Avatar, addressCascaderOptions, PicturesWall }
+
+class PicturesWallShow extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      previewVisible: false,
+      previewImage: '',
+      fileList: []
+    }
+    console.log(this.state)
+  }
+
+  render() {
+    const { previewVisible, previewImage } = this.state;
+    const fileList = new Array()
+    console.log('Wall')
+    console.log(this.props)
+    console.log(this.props.imgArray)
+    for(let index in this.props.imgArray){
+      let img = {
+        uid: -index,
+        name: 'image.png',
+        status: 'done',
+        url: '/public/images/'+this.props.imgArray[index]
+      }
+      fileList.push(img)
+    }
+    return (
+      <div className="clearfix">
+        <Upload
+          listType="picture-card"
+          fileList={fileList}
+        >
+        </Upload>
+      </div>
+    );
+  }
+}
+
+
+export { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow }

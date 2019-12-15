@@ -6,7 +6,7 @@ import { getHouseInfAPI1, postHouseInfAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import { Avatar, addressCascaderOptions, PicturesWall } from './public'
+import { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow } from './public'
 
 import { Cascader } from 'antd';
 
@@ -142,7 +142,6 @@ class GridBar extends React.Component{
         const kids = React.Children.map(this.props.children, child => {
                         return child
                     })
-        console.log(kids)
         for(let index = kids.length; index < 5; index++){
             kids.push(<p></p>)
         }
@@ -197,7 +196,7 @@ class HouseBriefInf extends React.Component{
         return(
             <div className={houseLeaseInf}>
                 <div>
-                    <img src="/public/images/logo.png"></img>
+                    <img src={this.props.coverImg}></img>
                 </div>
                 <div>
                     <p>{this.props.title}</p>
@@ -248,7 +247,9 @@ class HouseBriefInfArray extends React.Component{
                 }
                 console.log(data)
                 let houseInf = new Array()
+                console.log(data.length)
                 for(let index in data){
+                    console.log('-----')
                     let house = {
                         usersName: data[index].Users_Name,
                         houseID: data[index].House_ID,
@@ -258,13 +259,20 @@ class HouseBriefInfArray extends React.Component{
                         district: data[index].House_District,
                         introuce: data[index].House_Profile,
                         leaseMoney: data[index].House_LeaseMoney,
-                        leaseType: data[index].House_Mode
+                        leaseType: data[index].House_Mode,
+                        coverImg: '/public/images/' + data[index].houseCoverImg[0].HouseCoverImg_FileName,
+                        houseImgArray: new Array()
+                    }
+                    for(let index2 in data[index].houseImg){
+                        house.houseImgArray.push(data[index].houseImg[index2].HouseImg_FileName)
+                        console.log(data[index].houseImg[index2].HouseImg_FileName)
                     }
                     houseInf.push(house)
                 }
-               this.setState({
-                   inf: houseInf
-               })
+               console.log('12312')
+                this.setState({
+                    inf: houseInf
+                })
             },
             (err)=>{},
             params
@@ -352,6 +360,13 @@ class HouseInf extends React.Component{
                 inf.houseAllInf.area = data.House_Area
                 inf.houseAllInf.areaType = data.House_AreaType
                 inf.houseAllInf.introduction = data.House_Profile
+                inf.houseAllInf.coverImg = data.houseCoverImg[0].HouseCoverImg_FileName
+                inf.houseAllInf.imgArray = new Array()
+                for(let index in data.houseImg){
+                    inf.houseAllInf.imgArray.push(data.houseImg[index].HouseImg_FileName)
+                }
+                console.log('123123212312')
+                console.log(data.houseImg)
 
                 inf.dealInf.cashDeposit = data.House_CashDeposit
                 inf.dealInf.leaseMoney = data.House_LeaseMoney
@@ -460,7 +475,13 @@ class HouseAllInf extends React.Component{
                     <GridBar><p>地址:</p><p>{this.props.address}</p></GridBar>
                     <GridBar><p>面积:</p><p>{this.props.area}<span>{this.areaType}</span></p></GridBar>
                     <GridBar><p>简介:</p><p>{this.props.introduction}</p></GridBar>
-                    <GridBar><p>照片:</p><p>{this.props.imgArray}</p></GridBar>
+                    <Col span={24}>
+                        <Row>
+                            <Col span={4}>照片:</Col>
+                            <Col span={18}><PicturesWallShow imgArray={this.props.imgArray}/></Col>
+                            <Col span={2}></Col>
+                        </Row>
+                    </Col>
                 </Row>
             </div> 
         )
@@ -751,8 +772,8 @@ class DealInfInput extends React.Component{
         this.params.leaseMoney = value
     }
 
-    cashDeposit = (event)=>{
-        this.params.cashDeposit = event.target.value
+    cashDeposit = (value)=>{
+        this.params.cashDeposit = value
     }
 
     electronicContract = (event)=>{
@@ -772,7 +793,7 @@ class DealInfInput extends React.Component{
                 <Row>
                     <GridBar><p>交易信息</p></GridBar>
                     <GridBar><p>租赁方式:</p><InputNumber placeholder="800" onChange={this.leaseMoney} /><Input placeholder="month" onChange={this.leaseType} /><p></p></GridBar>
-                    <GridBar><p>押金:</p><Input placeholder="付一压二" onChange={this.cashDeposit}/></GridBar>
+                    <GridBar><p>押金:</p><InputNumber placeholder="400" onChange={this.cashDeposit}/></GridBar>
                     <GridBar><p>电子合同:</p><Input placeholder="无" onChange={this.electronicContract}/></GridBar>
                 </Row>
             </div>
