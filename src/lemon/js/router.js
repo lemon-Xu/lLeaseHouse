@@ -5,7 +5,7 @@ import { Menu, Icon, Row, Col } from 'antd';
 
 import { Home } from './a';
 import { Detail } from './b';
-import { Login, Register } from './login'
+import { Login, Register, WrappedRegistrationForm } from './login'
 import { Information } from './yeyu'
 import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput } from './houseLeaseInf'
 import { Users_1, UsersFollowPanelArray } from './firia'
@@ -50,7 +50,7 @@ class CentreContent extends React.Component{
                     <Route exact path="/rentOut/" component={HouseInfInput} />
                     <Route exact path="/community" component={Information} />
                     <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/register" component={WrappedRegistrationForm} />
                 </Switch>
             </HashRouter>
         )
@@ -78,8 +78,12 @@ class LoginOrRegister extends React.Component{
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props)
+        let current = 'home'
+        if(this.props.match.params.navigation != undefined)
+            current = this.props.match.params.navigation
+        console.log('current: ',current)
         this.state = {
-            current: this.props.match.params.navigation,
+            current: current,
         };
         this.handleClick = this.handleClick.bind(this)
         console.log(this.props.match.params.navigation)
@@ -155,12 +159,16 @@ class HeaderBar extends React.Component {
             </Col>
                             <Col className="gutter-row" span={12}>
                                 <HashRouter>
-                                    <Route path="/:navigation" component={NavigationBar} />
+                                    <Switch>
+                                        <Route exact path="/" component={NavigationBar} />
+                                        <Route exact path="/:navigation" component={NavigationBar} />
+                                    </Switch>
                                 </HashRouter>
                             </Col>
                             <Col className="gutter-row" span={4} className={headerBar}>
-                                <Icon type="bell" />
-                                <Icon type="user" />
+                               <a href="#/login">登陆</a>
+                               <span>|</span>
+                               <a href="#/register">注册</a>
                             </Col>
                             <Col className="gutter-row" span={2} className={headerBar}>
                                 2

@@ -36,13 +36,7 @@ router.post('',function(req, res,) {
   let params = req.body.params
   console.log(req.body)
   console.log(params)
-  var inf = {
-    "Users_Account": params.usersAccount,
-    "Users_PassWord": params.usersPass,
-    "Users_Rank": params.usersRank,
-    "Users_Name": params.usersAccount
-  }
-  console.log(inf)
+  var inf = params
   var sql = session.getSQL('insertUsers', inf)
   
   console.log(sql)
@@ -51,11 +45,14 @@ router.post('',function(req, res,) {
       "result": false,
       'mess': 'false'
     }
+    console.log(err)
+    console.log(rows)
+    console.log(fields)
     if(err != null && rows == undefined) {
       ret.mess = "用户名已被注册"
     } else {
-      res.result = true
-      res.mess = "成功"
+      ret.result = true
+      ret.mess = "成功"
     }
     res.end(JSON.stringify(ret) )
   })

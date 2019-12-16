@@ -128,3 +128,4 @@
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Account":"x1234","Users_PassWord":"1234"},"ret":" SELECT * FROM users WHERE Users_Account = 'x1234' AND Users_PassWord = MD5('1234')"},"date":{"day":15,"month":11,"year":2019,"time":"11-51-49"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Account":"x1234","Users_PassWord":"1234"},"ret":" SELECT * FROM users  WHERE Users_Account = 'x1234' AND Users_PassWord = MD5('1234')"},"date":{"day":15,"month":11,"year":2019,"time":"14-53-46"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_ID":"2"},"ret":" SELECT * FROM users   "},"date":{"day":15,"month":11,"year":2019,"time":"15-5-8"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":16,"month":11,"year":2019,"time":"20-21-15"}},"level":"debug"}
