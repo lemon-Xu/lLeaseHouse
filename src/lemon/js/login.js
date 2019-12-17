@@ -100,11 +100,11 @@ class Login extends React.Component {
       "usersPass": this.state.usersPass
     }
     loginAPI1((res)=>{
-      let data = res.data
+      let data = res.data[0]
       console.log(data)
       if(data != '查询错误') {
         window.location.href = '#/home'
-        Cookies.set('usersID', data.usersID)
+        Cookies.set('usersID', data.Users_ID)
         console.log(document.cookie)
       }
       else

@@ -17,13 +17,7 @@ router.get('',function(req, res, next) {
       res.end('查询错误')
     else if(rows.length != 0){
       console.log(rows)
-      var ret = {
-        "usersID": rows[0].Users_ID,
-        "usersAccount": rows[0].Users_Account,
-        "usersName": rows[0].Users_Name,
-        "usersIsBan": rows[0].Users_IsBan
-      }
-      res.json(ret)
+      res.json(rows)
     }
       res.end('查询错误')
   })

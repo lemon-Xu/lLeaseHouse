@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch, Link} from 'react-router-dom';
 import { Menu, Icon, Button, Row, Col } from 'antd';
 import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput } from './houseLeaseInf'
-
+import { getUsersInfAPI1 } from './ajaxAPI1'
 const { SubMenu } = Menu;
 
 class Navigation extends React.Component {
@@ -174,24 +174,37 @@ class ContentItem extends React.Component{
   constructor(props){
     super(props)
   }
-  plusHandle = ()=>{alert(123)}
-  closeHandle = ()=>{alert(123)}
-  infoHandle = ()=>{alert(123)}
-  editHandle = ()=>{alert(123)}
+  plusHandle = ()=>{
+    this.props.pluse(this.props.callParams)
+  }
+  closeHandle = ()=>{
+    this.props.close(this.props.callParams)
+  }
+  infoHandle = ()=>{
+    this.props.info(this.props.callParams)
+  }
+  editHandle = ()=>{
+    this.props.edit(this.props.callParams)
+  }
   render(){
-    const plus = <Button type="primary" size="small" icon="plus"></Button>
-    const close = <Button type="danger" size="small" icon="close"></Button>
-    const info = <Button type="default" size="small" icon="info"></Button>
-    const edit = <Button type="dashed" size="small" icon="edit"></Button>
+    const plus = <Button type="primary" size="small" icon="plus" onClick={this.plusHandle}></Button>
+    const close = <Button type="danger" size="small" icon="close" onClick={this.closeHandle}></Button>
+    const info = <Button type="default" size="small" icon="info" onClick={this.infoHandle}></Button>
+    const edit = <Button type="dashed" size="small" icon="edit" onClick={this.editHandle}></Button>
     const label = { xs: 8, sm: 16, md: 24}
+    const item = this.props.item
+    let content = new Array()
+    for(let index in item){
+      let a = <Col span={3} key={index}>{item[index]}</Col>
+      content.push(a)
+    }
     return(
       <Row gutter={label}>
         <Col span={2}></Col>
-        <Col span={3}>昵称</Col>
-        <Col span={3}>账号</Col>
-        <Col span={3}>邮箱</Col>
-        <Col span={3}>简介</Col>
-        <Col span={2}>{plus}</Col>
+        {
+          content
+        }
+        {/* <Col span={2}>{plus}</Col> */}
         <Col span={2}>{close}</Col>
         <Col span={2}>{edit}</Col>
         <Col span={2}>{info}</Col>
@@ -204,16 +217,74 @@ class ContentItem extends React.Component{
 class LandlordContent extends React.Component{
   constructor(props){
     super(props)
+    this.state = {
+      landlordInfo: []
+    }
+  }
+  componentDidMount(){
+    this.getLandlordInf()
+  }
+  pluse=(value)=>{
+    console.log(value)
+  }
+  close=(value)=>{
+    console.log(value)
+  }
+  edit=(value)=>{
+    console.log(value)
+  }
+  info=(value)=>{
+    console.log(value)
+  }
+  getLandlordInf(){
+    let params = {
+      Users_Rank: '租客'
+    }
+    getUsersInfAPI1(
+      (res)=>{
+        let data = res.data
+        this.setState({landlordInfo: res.data})
+        console.log(data)
+      },
+      ()=>{},
+      params
+    )
+  }
+  reload=()=>{
+    this.getLandlordInf()
+    alert('刷新')
   }
   render(){
-    const item = ['昵称', '账号', '邮箱', '简介']
+    const reload = <Button onClick={this.reload} type="primary" size="small" icon="reload"></Button>
+    const headItem = ['昵称', '账号', '邮箱', '电话', reload]
     const headItemParams = {
-      item: item
+      item: headItem
+    }
+    const contentItemHandle = {
+      pluse: this.pluse,
+      close: this.close,
+      edit: this.edit,
+      info: this.info
+    }
+    const landlordInfo = this.state.landlordInfo
+    const contentItemArray = new Array()
+    for(let index in landlordInfo){
+      let info = landlordInfo[index]
+      let params = {
+        item: [info.Users_Name, info.Users_Account, info.Users_Email, info.Users_Phone],
+        callParams: {
+          usersID: info.Users_ID
+        }
+      }
+      let kids =  <ContentItem key={index} {...params} {...contentItemHandle}/>
+      contentItemArray.push(kids)
     }
     return(
       <div>
         <HeadItem {...headItemParams}/>
-        <ContentItem/>
+        {
+          contentItemArray
+        }
       </div>
     )
   }
