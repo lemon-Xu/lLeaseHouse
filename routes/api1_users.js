@@ -5,18 +5,21 @@ const session = require('../sqlSessionFactoryBuilder.js')
 router.get('',function(req, res, next) {
   console.log('---get')
   console.log(req.query)
+  let params = req.query
   var inf = {
-    "Users_Account": req.query.usersAccount,
-    "Users_PassWord": req.query.usersPass,
-    "Users_ID": req.query.usersId
+    "Users_Account": params.usersAccount,
+    "Users_PassWord": params.usersPass,
+    "Users_ID": params.usersId,
+    "Users_Rank": params.Users_Rank
   }
+  console.log(inf)
   var sql = session.getSQL('selectUsers', inf)
   console.log(sql)
   session.query(sql, (err, rows, fields)=>{
     if(rows == null || rows == undefined)
       res.end('查询错误')
     else if(rows.length != 0){
-      console.log(rows)
+      // console.log(rows)
       res.json(rows)
     }
       res.end('查询错误')

@@ -140,3 +140,46 @@
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-19-49"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-21-49"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-23-24"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-40-40"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-41-8"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-42-10"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-42-50"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-44-23"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-48-8"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-53-39"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-53-47"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-54-19"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-54-45"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-55-30"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-58-19"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"17-59-46"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-0-22"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-0-25"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-0-26"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-2-21"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-4-39"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-5-46"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-5-52"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-6-0"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-6-2"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-6-3"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-7-22"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-15-21"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-15-38"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-16-15"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-16-36"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-16-45"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_ID":"2"},"ret":" SELECT * FROM users   "},"date":{"day":17,"month":11,"year":2019,"time":"18-17-25"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Account":"x1234","Users_PassWord":"1234"},"ret":" SELECT * FROM users  WHERE Users_Account = 'x1234' AND Users_PassWord = MD5('1234')"},"date":{"day":17,"month":11,"year":2019,"time":"18-17-32"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-18-44"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":17,"month":11,"year":2019,"time":"18-18-47"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-18-49"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":17,"month":11,"year":2019,"time":"18-18-50"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-18-52"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":17,"month":11,"year":2019,"time":"18-18-54"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":17,"month":11,"year":2019,"time":"18-22-8"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-26-4"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":17,"month":11,"year":2019,"time":"18-26-16"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-26-40"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":17,"month":11,"year":2019,"time":"18-26-41"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"租客"},"ret":" SELECT * FROM users  WHERE Users_Rank = '租客'"},"date":{"day":17,"month":11,"year":2019,"time":"18-26-43"}},"level":"debug"}

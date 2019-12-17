@@ -3,10 +3,23 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch, Link} from 'react-router-dom';
 import { Menu, Icon, Button, Row, Col } from 'antd';
 import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput } from './houseLeaseInf'
-import { getUsersInfAPI1 } from './ajaxAPI1'
+import { getUsersInfAPI1, getHouseInfAPI1 } from './ajaxAPI1'
 const { SubMenu } = Menu;
 
 class Navigation extends React.Component {
+  constructor(props){
+    super(props)
+    let params = this.props.match.params
+    let primary = params.primary
+    console.log(primary)
+    this.selectedKeys = ['home']
+    this.openKeys = []   
+    if(primary != undefined){
+      console.log(primary)
+      this.selectedKeys = [primary]
+    }
+    console.log(this.selectedKeys)
+  }
   state = {
     collapsed: false,
   };
@@ -18,25 +31,15 @@ class Navigation extends React.Component {
   };
 
   render() {
-      // let params = this.props.match.params
-      // let primary = params.primary
-      // let secondary = params.secondary   
-      // let selectedKeys = 'home'
-      // let openKeys = ''   
-      // if(primary != undefined){
-      //   openKeys = primary
-      // }
-      // if(secondary != undefined && primary != undefined){
-      //   selectedKeys = '#/' + params.primary + '/' + params.secondary
-      // }
+     
     return (
       <div style={{ width: 256 }}>
         <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
           <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
         </Button>
         <Menu
-          // defaultSelectedKeys={[selectedKeys]}
-          // defaultOpenKeys={[openKeys]}
+          defaultSelectedKeys={this.selectedKeys}
+          defaultOpenKeys={this.openKeys}
           mode="inline"
           theme="dark"
           inlineCollapsed={this.state.collapsed}
@@ -44,45 +47,9 @@ class Navigation extends React.Component {
           <Menu.Item key="#/">
             <span>home</span>
           </Menu.Item>
-          <SubMenu
-            key="landlord"
-            title={
-              <span>
-                <span>landlord</span>
-              </span>
-            }
-          >
-            <Menu.Item key="#/landlord/add"><a href={'#/landlord/add'}>增</a></Menu.Item>
-            <Menu.Item key="#/landlord/delete"><a href={'#/landlord/delete'}>删</a></Menu.Item>
-            <Menu.Item key="#/landlord/set"><a href={'#/landlord/set'}>改</a></Menu.Item>
-            <Menu.Item key="#/landlord/select"><a href={'#/landlord/select'}>查</a></Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="tenant"
-            title={
-              <span>
-                <span>tenant</span>
-              </span>
-            }
-          >
-            <Menu.Item key="#/tenant/add"><a href={'#/tenant/add'}>增</a></Menu.Item>
-            <Menu.Item key="#/tenant/delete"><a href={'#/tenant/delete'}>删</a></Menu.Item>
-            <Menu.Item key="#/tenant/set"><a href={'#/tenant/set'}>改</a></Menu.Item>
-            <Menu.Item key="#/tenant/select"><a href={'#/tenant/select'}>查</a></Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="houseInf"
-            title={
-              <span>
-                <span>houseInf</span>
-              </span>
-            }
-          >
-             <Menu.Item key="#/houseInf/add"><a href={'#/houseInf/add'}>增</a></Menu.Item>
-            <Menu.Item key="#/houseInf/delete"><a href={'#/houseInf/delete'}>删</a></Menu.Item>
-            <Menu.Item key="#/houseInf/set"><a href={'#/houseInf/set'}>改</a></Menu.Item>
-            <Menu.Item key="#/houseInf/select"><a href={'#/houseInf/select'}>查</a></Menu.Item>
-          </SubMenu>
+          <Menu.Item key="landlord"><a href={'#/landlord'}>房东</a></Menu.Item>
+          <Menu.Item key="ternant"><a href={'#/ternant'}>租客</a></Menu.Item>
+          <Menu.Item key="houseInf"><a href={'#/houseInf'}>房屋信息</a></Menu.Item>
         </Menu>
       </div>
     );
@@ -100,11 +67,11 @@ class ContentRouter extends React.Component{
         return(
             <HashRouter>
                 <Switch>
-                    <Route exact path="/" component={HouseBriefInf} />
-                    <Route exact path="/home" component={App} />
+                    <Route exact path="/" component={LandlordContent} />
+                    <Route exact path="/home" component={LandlordContent}  />
                     <Route exact path="/landlord" component={LandlordContent} />
-                    <Route exact path="/tenant" component={App} />
-                    <Route exact path="/houseInf" component={App} />
+                    <Route exact path="/ternant" component={TernantContent}  />
+                    <Route exact path="/houseInf" component={HouseInfContent}  />
                 </Switch>
             </HashRouter>
         )
@@ -122,8 +89,7 @@ class NavigationRouter extends React.Component{
             <HashRouter>
                 <Switch>
                     <Route exact path="/" component={Navigation} />
-                    {/* <Route exact path="/:primary/" component={Navigation} />
-                    <Route exact path="/:primary/:secondary" component={Navigation} /> */}
+                    <Route exact path="/:primary" component={Navigation} />
                 </Switch>
             </HashRouter>
         )
@@ -204,7 +170,7 @@ class ContentItem extends React.Component{
         {
           content
         }
-        {/* <Col span={2}>{plus}</Col> */}
+        <Col span={2}>{plus}</Col>
         <Col span={2}>{close}</Col>
         <Col span={2}>{edit}</Col>
         <Col span={2}>{info}</Col>
@@ -225,6 +191,7 @@ class LandlordContent extends React.Component{
     this.getLandlordInf()
   }
   pluse=(value)=>{
+    window.location.href = '/dist/index.html#/register'
     console.log(value)
   }
   close=(value)=>{
@@ -237,6 +204,84 @@ class LandlordContent extends React.Component{
     console.log(value)
   }
   getLandlordInf(){
+    let params = {
+      Users_Rank: '房东'
+    }
+    getUsersInfAPI1(
+      (res)=>{
+        let data = res.data
+        this.setState({landlordInfo: res.data})
+        console.log(data)
+      },
+      ()=>{},
+      params
+    )
+  }
+  reload=()=>{
+    this.getLandlordInf()
+    alert('刷新')
+  }
+  render(){
+    const reload = <Button onClick={this.reload} type="primary" size="small" icon="reload"></Button>
+    const headItem = ['昵称', '账号', '邮箱', '电话', reload]
+    const headItemParams = {
+      item: headItem
+    }
+    const contentItemHandle = {
+      pluse: this.pluse,
+      close: this.close,
+      edit: this.edit,
+      info: this.info
+    }
+    const landlordInfo = this.state.landlordInfo
+    const contentItemArray = new Array()
+    for(let index in landlordInfo){
+      let info = landlordInfo[index]
+      let params = {
+        item: [info.Users_Name, info.Users_Account, info.Users_Email, info.Users_Phone],
+        callParams: {
+          usersID: info.Users_ID
+        }
+      }
+      let kids =  <ContentItem key={index} {...params} {...contentItemHandle}/>
+      contentItemArray.push(kids)
+    }
+    return(
+      <div>
+        <HeadItem {...headItemParams}/>
+        {
+          contentItemArray
+        }
+      </div>
+    )
+  }
+}
+
+
+class TernantContent extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      landlordInfo: []
+    }
+  }
+  componentDidMount(){
+    this.getTernantInf()
+  }
+  pluse=(value)=>{
+    window.location.href = '/dist/index.html#/register'
+    console.log(value)
+  }
+  close=(value)=>{
+    console.log(value)
+  }
+  edit=(value)=>{
+    console.log(value)
+  }
+  info=(value)=>{
+    console.log(value)
+  }
+  getTernantInf(){
     let params = {
       Users_Rank: '租客'
     }
@@ -274,6 +319,83 @@ class LandlordContent extends React.Component{
         item: [info.Users_Name, info.Users_Account, info.Users_Email, info.Users_Phone],
         callParams: {
           usersID: info.Users_ID
+        }
+      }
+      let kids =  <ContentItem key={index} {...params} {...contentItemHandle}/>
+      contentItemArray.push(kids)
+    }
+    return(
+      <div>
+        <HeadItem {...headItemParams}/>
+        {
+          contentItemArray
+        }
+      </div>
+    )
+  }
+}
+
+class HouseInfContent extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      landlordInfo: []
+    }
+  }
+  componentDidMount(){
+    this.getHouseInf()
+  }
+  pluse=(value)=>{
+    window.location.href = '/dist/index.html#/register'
+    console.log(value)
+  }
+  close=(value)=>{
+    console.log(value)
+  }
+  edit=(value)=>{
+    console.log(value)
+  }
+  info=(value)=>{
+    console.log(value)
+  }
+  getHouseInf(){
+    let params = {
+      
+    }
+    getHouseInfAPI1(
+      (res)=>{
+        let data = res.data
+        this.setState({landlordInfo: res.data})
+        console.log(data)
+      },
+      ()=>{},
+      params
+    )
+  }
+  reload=()=>{
+    this.getLandlordInf()
+    alert('刷新')
+  }
+  render(){
+    const reload = <Button onClick={this.reload} type="primary" size="small" icon="reload"></Button>
+    const headItem = ['标题', '省份', '押金', '租赁方式', reload]
+    const headItemParams = {
+      item: headItem
+    }
+    const contentItemHandle = {
+      pluse: this.pluse,
+      close: this.close,
+      edit: this.edit,
+      info: this.info
+    }
+    const landlordInfo = this.state.landlordInfo
+    const contentItemArray = new Array()
+    for(let index in landlordInfo){
+      let info = landlordInfo[index]
+      let params = {
+        item: [info.House_Headline, info.House_Province, info.House_CashDeposit, info.House_LeaseMoney + ' / ' + info.House_Mode],
+        callParams: {
+          houseID: info.House_ID
         }
       }
       let kids =  <ContentItem key={index} {...params} {...contentItemHandle}/>
