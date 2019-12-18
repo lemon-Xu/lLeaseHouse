@@ -322,7 +322,7 @@ class RegistrationForm extends React.Component {
             ],
           })(<Input />)}
         </Form.Item>
-         <Form.Item label="Stats">
+         <Form.Item label="Status">
           {getFieldDecorator('status',{
             rules: [
               {
@@ -426,11 +426,30 @@ const LandlordRegistrationForm = Form.create(
     //   }
     //  },
       mapPropsToFields(props) {
+        console.log(props)
+        let fields = ['account', 'status', 'password', 'confirm', 'nickname', 'phone']
+        let ret = {}
+        for(let index in fields){
+          let field = fields[index]
+          console.log(props[field])
+          if(!props[field])
+            continue
+          ret[field] =  Form.createFormField({
+            field,
+            value: props[field],
+          })
+        }
+        console.log('ret:',ret)
         return {
-          status: Form.createFormField({
-            ...props.status,
-            value: props.status,
-          }),
+          ...ret
+          // status: Form.createFormField({
+          //   ...props.status,
+          //   value: props.status,
+          // }),
+          // Account: Form.createFormField({
+          //   ...props.status,
+          //   value: props.status,
+          // }),
         };
       }
   }) (RegistrationForm);
@@ -443,19 +462,23 @@ class LandlordContent extends React.Component{
     this.state = {
       landlordInfo: [],
       title: ['添加房东','删除房东','修改房东信息','房东详细信息'],
-      modalKids: [<LandlordRegistrationForm status="房东" onGetSubmit={this.addSubmitReceiver}/>,<WrappedRegistrationForm/>,<WrappedRegistrationForm/>,<WrappedRegistrationForm/>],
       titleNum: 3,
       visible: false,
-      confirmLoading: false
+      confirmLoading: false,
+      edit: {}
     }
-    this.onOkHandle = new Array()
+    this.onOkHandle = ()=>{}
+  }
+  editSubmitReceiver=(fun)=>{
+    console.log(this.onOkHandle)
+    this.onOkHandle = fun
   }
   addSubmitReceiver=(fun)=>{
     console.log(this.onOkHandle)
-    this.onOkHandle.push(fun)
+    this.onOkHandle = fun
   }
   handleOk=()=>{
-    this.onOkHandle[0]()
+    this.onOkHandle()
   }
   componentDidMount(){
     this.getLandlordInf()
@@ -473,8 +496,17 @@ class LandlordContent extends React.Component{
   }
   edit=(value)=>{
     this.setState({visible: true, titleNum: 2})
-    console.log(this.state)
-    console.log(value)
+    console.log(value.info)
+    let edit = {
+      account: value.info.Users_Account,
+      status: value.info.Users_Rank,
+      'e-mail': value.info.Users_Email,
+      password: value.info.Users_PassWord,
+      confirm: value.info.Users_PassWord,
+      nickname: value.info.Users_Name,
+      phone: value.info.Users_Phone
+    }
+    this.setState({edit: edit})
   }
   info=(value)=>{
     this.setState({visible: true, titleNum: 3})
@@ -501,7 +533,8 @@ class LandlordContent extends React.Component{
   render(){
     const reload = <Button onClick={this.reload} type="primary" size="small" icon="reload"></Button>
     const headItem = ['昵称', '账号', '邮箱', '电话', reload]
-    const { title, titleNum, visible, confirmLoading, modalKids} = this.state
+    const { title, titleNum, visible, confirmLoading} = this.state
+    let modalKids = [<LandlordRegistrationForm status="房东" onGetSubmit={this.addSubmitReceiver}/>,<WrappedRegistrationForm/>,<LandlordRegistrationForm {...this.state.edit} onGetSubmit={this.editSubmitReceiver}/>,<WrappedRegistrationForm/>]
     const headItemParams = {
       item: headItem
     }
@@ -518,7 +551,7 @@ class LandlordContent extends React.Component{
       let params = {
         item: [info.Users_Name, info.Users_Account, info.Users_Email, info.Users_Phone],
         callParams: {
-          usersID: info.Users_ID
+          info: info
         }
       }
       let kids =  <ContentItem key={index} {...params} {...contentItemHandle}/>
