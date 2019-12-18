@@ -48,6 +48,18 @@
             {
                 "logic": "Users_Name != null",
                 "sql": "#{Users_Name}"
+            },
+            {
+                "logic": "Users_Email != null",
+                "sql": "#{Users_Email}"
+            },
+            {
+                "logic": "Users_Profile != null",
+                "sql": "#{Users_Profile}"
+            },
+            {
+                "logic": "Users_Phone != null",
+                "sql": "#{Users_Phone}"
             }
         ]
     },
