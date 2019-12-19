@@ -204,7 +204,7 @@ class HouseBriefInf extends React.Component{
                     <p>{this.props.introduce}</p>
                 </div>
                 <div>
-                    <Link to={"/renting/" + this.props.houseID + '/' + this.props.usersName}>详情</Link>
+                    <Link to={"/tenant/reting/" + this.props.houseID + '/' + this.props.usersName}>详情</Link>
                     <p>{this.props.leaseMoney}<span>/{this.props.leaseType}</span></p>
                     <span>
                         <Icon type="heart" theme={this.state.followIcon} className={floatRight} onClick={this.handleClick}></Icon>
@@ -315,13 +315,48 @@ class HouseInf extends React.Component{
         super(props)
         this.state = {
             inf: '',
-            loading: true
+            loading: true,
+            money: 0,
+            start: 0,
+            end: 0
         }
     }
 
 
     toAnalysisInf(){
         
+    }
+
+    handleClick=()=>{
+        const houseID = this.props.match.params.houseID
+        const usersID = this.props.match.params.usersID
+        const params = {
+            HouseLeaseOrderForm_House_ID: houseID,
+            HouseLeaseOrderForm_Users_ID: usersID,
+            HouseLeaseOrderForm_LeaseMoney: this.state.money,
+            HouseLeaseOrderForm_StartTime: this.state.start,
+            HouseLeaseOrderForm_EndTime: this.state.end
+        }
+        console.log(params)
+    }
+
+
+    onChange=(dates, dateStrings)=> {
+        console.log('From: ', dates[0], ', to: ', dates[1]);
+        let day = dates[1].diff(dates[0], 'day')
+        console.log(day)
+        let cashDeposit = this.state.inf.dealInf.cashDeposit
+        let leaseMoney = this.state.inf.dealInf.leaseMoney
+        let leaseType = this.state.inf.dealInf.leaseType
+        let num = 30
+        if(leaseType == 'month' || leaseType == '月'){
+            num = 30
+        } else if(leaseType == 'year' || leaseType == '年'){
+            num = 365
+        } 
+        // let money = cashDeposit +  leaseMoney * Math.ceil((day / num))
+        let money = leaseMoney * Math.ceil((day / num))
+        this.setState({start: dates[0].format('L'), end: dates[1].format('L'), money: money})
     }
 
     toGetInf(houseID, usersName){
@@ -390,7 +425,7 @@ class HouseInf extends React.Component{
         let landlordInf = this.props.landlordInf
         let houseAllInf = this.props.houseAllInf
         let dealInf = this.props.dealInf
-
+        const {money} = {...this.state}
         console.log(houseID,usersID)
 
         if(houseID != null && houseID != undefined && usersID != null && usersID != undefined){
@@ -407,11 +442,16 @@ class HouseInf extends React.Component{
                         <GridBarBorder />
                         <DealInf {...this.state.inf.dealInf} />
                         <GridBarBorder />
+                        <Row>
+                            <Col span={4}>起始时间:</Col>
+                            <Col span={14}>
+                                <RangePicker onChange={this.onChange} defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
+                            </Col>
+                            <Col span={4}>金额:</Col>
+                            <Col span={2}>{money}</Col>
+                        </Row>
                         <Col span={24}>
-                            <RangePicker defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
-                        </Col>
-                        <Col span={24}>
-                        <Button type="primary" block>租赁</Button>
+                        <Button type="primary" block onClick={this.handleClick}>租赁</Button>
                         </Col>
                     </Row>
                 </div>
@@ -427,11 +467,16 @@ class HouseInf extends React.Component{
                         <GridBarBorder />
                         <DealInf {...dealInf} />
                         <GridBarBorder />
+                        <Row>
+                            <Col span={4}>起始时间:</Col>
+                            <Col span={14}>
+                                <RangePicker onChange={this.onChange} defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
+                            </Col>
+                            <Col span={4}>金额:</Col>
+                            <Col span={2}>{money}</Col>
+                        </Row>
                         <Col span={24}>
-                            <RangePicker defaultValue={[moment(moment().format('L'), 'L'), moment('2015/01/01', dateFormat)]} format={dateFormat}/>
-                        </Col>
-                        <Col span={24}>
-                            <Button type="primary" block>租赁</Button>
+                            <Button type="primary" block onClick={this.handleClick}>租赁</Button>
                         </Col>
                     </Row>
                 </div>
@@ -498,7 +543,7 @@ class DealInf extends React.Component{
             <div>
                 <Row>
                     <GridBar><p>交易信息</p></GridBar>
-                    <GridBar><p>租赁方式:</p><p>{this.props.leaseMoney}<span>{this.props.leaseType}</span></p></GridBar>
+                    <GridBar><p>租赁方式:</p><p>{this.props.leaseMoney}<span>/{this.props.leaseType}</span></p></GridBar>
                     <GridBar><p>押金:</p><p>{this.props.cashDeposit}</p></GridBar>
                     <GridBar><p>电子合同:</p><p>{this.props.electronicContract}</p></GridBar>
                 </Row>

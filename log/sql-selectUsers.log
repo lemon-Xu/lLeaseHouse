@@ -47,3 +47,7 @@
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":19,"month":11,"year":2019,"time":"17-9-5"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":19,"month":11,"year":2019,"time":"17-9-42"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Rank":"房东"},"ret":" SELECT * FROM users  WHERE Users_Rank = '房东'"},"date":{"day":19,"month":11,"year":2019,"time":"17-9-50"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{},"ret":" SELECT * FROM users   "},"date":{"day":19,"month":11,"year":2019,"time":"18-23-50"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Account":"X1234","Users_PassWord":"1234"},"ret":" SELECT * FROM users  WHERE Users_Account = 'X1234' AND Users_PassWord = MD5('1234')"},"date":{"day":19,"month":11,"year":2019,"time":"18-23-54"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_Account":"X1234","Users_PassWord":"1234"},"ret":" SELECT * FROM users  WHERE Users_Account = 'X1234' AND Users_PassWord = MD5('1234')"},"date":{"day":19,"month":11,"year":2019,"time":"18-25-3"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectUsers","parameter":{"Users_ID":"2"},"ret":" SELECT * FROM users   "},"date":{"day":19,"month":11,"year":2019,"time":"19-9-34"}},"level":"debug"}

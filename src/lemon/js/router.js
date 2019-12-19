@@ -46,8 +46,8 @@ class CentreContent extends React.Component{
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/home" component={HouseBriefInfArray} />
-                    <Route exact path="/renting/:houseID/:usersID" component={HouseInf} />
-                    <Route exact path="/rentOut/" component={HouseInfInput} />
+                    <Route exact path="/tenant/reting/:houseID/:usersID" component={HouseInf} />
+                    <Route exact path="/renter/renting" component={HouseInfInput} />
                     <Route exact path="/community" component={Information} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={WrappedRegistrationForm} />
@@ -78,18 +78,27 @@ class LoginOrRegister extends React.Component{
 class NavigationBar extends React.Component {
     constructor(props) {
         super(props)
-        let current = 'home'
-        if(this.props.match.params.navigation != undefined)
-            current = this.props.match.params.navigation
+        let current = ''
+        let who = ''
+        let what = ''
+        console.log('match', this.props.match.params)
+        if(this.props.match.params.who)
+            who = '/'+this.props.match.params.who
+        if(this.props.match.params.what)
+            what = '/'+this.props.match.params.what
+        current = who + what
+        if(current == '')
+            current = 'home'
         console.log('current: ',current)
         this.state = {
             current: current,
         };
         this.handleClick = this.handleClick.bind(this)
-        console.log(this.props.match.params.navigation)
+        console.log(current)
     }
 
     handleClick(e) {
+        window.location.href = '#'+e.key
         console.log('click ', e);
         this.setState({
             current: e.key,
@@ -97,20 +106,33 @@ class NavigationBar extends React.Component {
     };
 
     render() {
+        const { current } = {...this.state}
+        console.log(current)
         return (
-            <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal" theme="dark">
-                <Menu.Item key="home">
-                    <a href="#/home"><Icon type="home" />home</a>
-                </Menu.Item>
-                <Menu.Item key="renting">
-                    <a href="#/renting">renting</a>
-                </Menu.Item>
-                <Menu.Item key="rentOut">
-                    <a href="#/rentOut">rentOut</a>
-                </Menu.Item>
-                <Menu.Item key="community">
-                    <a href="#/community">community</a>
-                </Menu.Item>
+            <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" theme="dark">
+                <Menu.Item key="/home">主页</Menu.Item>
+                <SubMenu
+                    title={
+                        <span className="submenu-title-wrapper">
+                        租客
+                        </span>
+                    }
+                    key="tenant"
+                    >
+                    <Menu.Item key="/tenant/reting">租房</Menu.Item>
+                    <Menu.Item key="/tenant/orderForm">查看历史订单</Menu.Item>
+                </SubMenu>
+                <SubMenu
+                    title={
+                        <span className="submenu-title-wrapper">
+                        房东
+                        </span>
+                    }
+                    key="renter"
+                    >
+                    <Menu.Item key="/renter/renting">出租</Menu.Item>
+                </SubMenu>
+                <Menu.Item key="/community">community</Menu.Item>
                 {/* <SubMenu
             title={
               <span className="submenu-title-wrapper">
@@ -160,8 +182,12 @@ class HeaderBar extends React.Component {
                             <Col className="gutter-row" span={12}>
                                 <HashRouter>
                                     <Switch>
+                                        <Route path="/:who/:what" component={NavigationBar} />
+                                        <Route path="/:who" component={NavigationBar} />
                                         <Route exact path="/" component={NavigationBar} />
-                                        <Route exact path="/:navigation" component={NavigationBar} />
+                                        
+                                        
+                                        {/* <Route exact path="/:navigation" component={NavigationBar} /> */}
                                     </Switch>
                                 </HashRouter>
                             </Col>

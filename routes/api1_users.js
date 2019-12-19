@@ -19,6 +19,7 @@ router.get('',function(req, res, next) {
     if(rows == null || rows == undefined)
       res.end('查询错误')
     else if(rows.length != 0){
+      console.log(rows)
       // console.log(rows)
       res.json(rows)
     }
