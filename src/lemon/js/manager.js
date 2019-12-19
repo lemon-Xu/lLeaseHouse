@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch, Link} from 'react-router-dom';
 import { Menu, Icon, Button, Row, Col, Modal, Upload, message, Form, Input, Checkbox, Select, Tooltip, Cascader, AutoComplete, Radio } from 'antd';
 import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput } from './houseLeaseInf'
-import { getUsersInfAPI1, getHouseInfAPI1, usersRegisterAPI1 } from './ajaxAPI1'
+import { getUsersInfAPI1, getHouseInfAPI1, usersRegisterAPI1, putUsersInfAPI1, deleteUsersInfAPI1 } from './ajaxAPI1'
 
 const { SubMenu } = Menu;
 
@@ -193,8 +193,8 @@ class RegistrationForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.handleSubmit)
-    this.props.onGetSubmit(this.handleSubmit);
+    // console.log(this.props.form.validateFieldsAndScroll)
+    this.props.onGetSubmit(this.props.form.validateFieldsAndScroll);
   }
 
   handleSubmit = e => {
@@ -465,20 +465,108 @@ class LandlordContent extends React.Component{
       titleNum: 3,
       visible: false,
       confirmLoading: false,
-      edit: {}
+      info: {}
     }
-    this.onOkHandle = ()=>{}
+    this.validateFieldsAndScroll = ()=>{}
   }
-  editSubmitReceiver=(fun)=>{
-    console.log(this.onOkHandle)
-    this.onOkHandle = fun
-  }
-  addSubmitReceiver=(fun)=>{
-    console.log(this.onOkHandle)
-    this.onOkHandle = fun
+  submitReceiver=(fun)=>{
+    this.validateFieldsAndScroll = fun
   }
   handleOk=()=>{
-    this.onOkHandle()
+    switch(this.state.titleNum){
+      case 0:
+        this.validateFieldsAndScroll((err, values)=>{
+          if (!err) {
+            this.setState({confirmLoading: true})
+            console.log('Received values of form: ', values);
+            let params = {
+              Users_Name: values.nickname,
+              Users_Account: values.account,
+              Users_PassWord: values.password,
+              Users_Email: values.email,
+              Users_Rank: values.status,
+              Users_Profile: '用户很懒',
+              Users_Phone: values.phone
+            }
+    
+            usersRegisterAPI1(
+              (res)=>{
+                let data = res.data
+                if(data.mess=='名字已被注册'){
+                  alert('名字已被注册')
+                } else if(data.mess=='成功'){
+                  this.setState({confirmLoading: false})
+                } 
+              },
+              (err)=>{},
+              params
+            )
+          }
+        })
+        break
+      case 1:
+        console.log('删除')
+        this.validateFieldsAndScroll((err, values)=>{
+  
+          this.setState({confirmLoading: true})
+          console.log('Received values of form: ', values);
+          let params = {
+            Users_Name: values.nickname,
+            Users_Account: values.account,
+          }
+  
+          console.log(params)
+          deleteUsersInfAPI1(
+            (res)=>{
+              let data = res.data
+              if(data.mess=='删除失败'){
+                alert('删除失败')
+              } else if(data.mess=='删除成功'){
+                this.setState({confirmLoading: false})
+              } 
+            },
+            (err)=>{},
+            params
+          )
+          
+        })
+        break
+      case 2:
+        this.validateFieldsAndScroll((err, values)=>{
+          if (!err) {
+            this.setState({confirmLoading: true})
+            let params = {
+              Users_Name: values.nickname,
+              Users_Account: values.account,
+              Users_PassWord: values.password,
+              Users_Email: values.email,
+              Users_Rank: values.status,
+              Users_Profile: '用户很懒',
+              Users_Phone: values.phone
+            }
+    
+            console.log(params)
+            putUsersInfAPI1(
+              (res)=>{
+                let data = res.data
+                if(data.mess=='修改失败'){
+                  alert('修改失败')
+                } else if(data.mess=='修改成功'){
+                  this.setState({confirmLoading: false})
+                } 
+              },
+              (err)=>{},
+              params
+            )
+          }
+        })
+        break
+      case 3:
+        break
+      default:
+        this.setState({visible:false})
+    }
+    
   }
   componentDidMount(){
     this.getLandlordInf()
@@ -493,11 +581,7 @@ class LandlordContent extends React.Component{
   close=(value)=>{
     this.setState({visible: true, titleNum: 1})
     console.log(value)
-  }
-  edit=(value)=>{
-    this.setState({visible: true, titleNum: 2})
-    console.log(value.info)
-    let edit = {
+    let info = {
       account: value.info.Users_Account,
       status: value.info.Users_Rank,
       'e-mail': value.info.Users_Email,
@@ -506,11 +590,35 @@ class LandlordContent extends React.Component{
       nickname: value.info.Users_Name,
       phone: value.info.Users_Phone
     }
-    this.setState({edit: edit})
+    this.setState({info: info})
+  }
+  edit=(value)=>{
+    this.setState({visible: true, titleNum: 2})
+    console.log(value.info)
+    let info = {
+      account: value.info.Users_Account,
+      status: value.info.Users_Rank,
+      'e-mail': value.info.Users_Email,
+      password: value.info.Users_PassWord,
+      confirm: value.info.Users_PassWord,
+      nickname: value.info.Users_Name,
+      phone: value.info.Users_Phone
+    }
+    this.setState({info: info})
   }
   info=(value)=>{
     this.setState({visible: true, titleNum: 3})
     console.log(value)
+    let info = {
+      account: value.info.Users_Account,
+      status: value.info.Users_Rank,
+      'e-mail': value.info.Users_Email,
+      password: value.info.Users_PassWord,
+      confirm: value.info.Users_PassWord,
+      nickname: value.info.Users_Name,
+      phone: value.info.Users_Phone
+    }
+    this.setState({info: info})
   }
   getLandlordInf(){
     let params = {
@@ -534,7 +642,7 @@ class LandlordContent extends React.Component{
     const reload = <Button onClick={this.reload} type="primary" size="small" icon="reload"></Button>
     const headItem = ['昵称', '账号', '邮箱', '电话', reload]
     const { title, titleNum, visible, confirmLoading} = this.state
-    let modalKids = [<LandlordRegistrationForm status="房东" onGetSubmit={this.addSubmitReceiver}/>,<WrappedRegistrationForm/>,<LandlordRegistrationForm {...this.state.edit} onGetSubmit={this.editSubmitReceiver}/>,<WrappedRegistrationForm/>]
+    let modalKids = [<LandlordRegistrationForm status="房东" onGetSubmit={this.submitReceiver}/>,<LandlordRegistrationForm onGetSubmit={this.submitReceiver} {...this.state.info} />,<LandlordRegistrationForm {...this.state.info} onGetSubmit={this.submitReceiver}/>,<LandlordRegistrationForm  {...this.state.info} onGetSubmit={this.submitReceiver}/>]
     const headItemParams = {
       item: headItem
     }

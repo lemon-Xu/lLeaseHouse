@@ -58,25 +58,48 @@ router.post('',function(req, res,) {
 router.delete('',function(req, res,) {
   console.log('---delete')
   console.log(req.body)
-  var ret = {
-    "usersName": req.body.usersName,
-    "usersPass": req.body.usersPass,
-    "usersRank": req.body.usersRank
-  }
-
-  res.end(JSON.stringify(ret))
+  let inf = req.body.params
+  let sql = session.getSQL('deleteUsers', inf)
+  session.query(sql, (err, rows, fields)=>{
+    let ret = {
+      "result": false,
+      'mess': 'false'
+    }
+    console.log(err)
+    console.log(rows)
+    console.log(fields)
+    if(err != null && rows == undefined) {
+      ret.mess = "删除失败"
+    } else {
+      ret.result = true
+      ret.mess = "删除成功"
+    }
+    res.end(JSON.stringify(ret) )
+  })
 })
 
 router.put('',function(req, res,) {
   console.log('---put')
   console.log(req.body)
-  var ret = {
-    "usersName": req.body.usersName,
-    "usersPass": req.body.usersPass,
-    "usersRank": req.body.usersRank
-  }
-
-  res.end(JSON.stringify(ret))
+  let inf = req.body.params
+  let sql = session.getSQL('updateUsers', inf)
+  console.log(sql)
+  session.query(sql, (err, rows, fields)=>{
+    let ret = {
+      "result": false,
+      'mess': 'false'
+    }
+    console.log(err)
+    console.log(rows)
+    console.log(fields)
+    if(err != null && rows == undefined) {
+      ret.mess = "修改失败"
+    } else {
+      ret.result = true
+      ret.mess = "修改成功"
+    }
+    res.end(JSON.stringify(ret) )
+  })
 })
 
 module.exports = router;

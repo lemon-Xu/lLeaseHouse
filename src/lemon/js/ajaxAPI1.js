@@ -44,6 +44,36 @@ const getUsersInfAPI1 = (resFun, errFun, params)=>{
     })
 }
 
+const putUsersInfAPI1 = (resFun, errFun, params)=>{
+  axios.put('/api1/users', {
+    "params": params
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
+}
+
+const deleteUsersInfAPI1 = (resFun, errFun, params)=>{
+  axios.delete('/api1/users', {
+    data: {
+      params: params
+    }
+  })
+    .then(function (res) {
+      if(resFun != null && resFun != undefined)
+        resFun(res)
+    })
+    .catch(function (err) {
+      if(errFun != null && errFun != undefined)
+        errFun(err)
+    })
+}
+
 const getUsersFollowInfAPI1 = (resFun, errFun, params)=>{
   axios.get('/api1/usersFollow', {
     "params": params
@@ -128,4 +158,4 @@ const getHouseCoverImg = (resFun, errFun, params)=>{
     })
 }
 
-export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, postHouseInfAPI1}
+export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, putUsersInfAPI1,getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, postHouseInfAPI1, deleteUsersInfAPI1}

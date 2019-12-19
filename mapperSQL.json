@@ -86,12 +86,34 @@
             {
                 "logic": "Users_Name != null",
                 "sql": "Users_Name = #{Users_Name} ,"
+            },
+            {
+                "logic": "Users_Phone != null",
+                "sql": "#{Users_Phone}"
             }
         ],
         "where": [
             {
                 "logic": "Users_ID != null",
                 "sql": "AND Users_ID = #{Users_ID}"
+            },
+            {
+                "logic": "Users_Account != null",
+                "sql": "AND Users_Account = #{Users_Account}"
+            }
+        ]
+    },
+    "deleteUsers": {
+        "type": "delete",
+        "sql": " DELETE FROM users",
+        "where":[
+            {
+                "logic": "Users_ID != null",
+                "sql": "AND Users_ID = #{Users_ID}"
+            },
+            {
+                "logic": "Users_Name != null",
+                "sql": "AND Users_Name = #{Users_Name}"
             }
         ]
     },
