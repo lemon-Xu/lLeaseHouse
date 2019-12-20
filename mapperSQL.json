@@ -270,5 +270,44 @@
                 "sql": "#{HouseCoverImg_FileName}"
             }
         ]
+    },
+    "insertHouseLeaseOrderForm": {
+        "type": "insert into",
+        "sql": "INSERT INTO HouseLeaseOrderForm ",
+        "values": [
+            {
+                "logic": "HouseLeaseOrderForm_House_ID != null",
+                "sql": "#{HouseLeaseOrderForm_House_ID}"
+            },
+            {
+                "logic": "HouseLeaseOrderForm_Users_ID != null",
+                "sql": "#{HouseLeaseOrderForm_Users_ID}"
+            },
+            {
+                "logic": "HouseLeaseOrderForm_LeaseMoney != null",
+                "sql": "#{HouseLeaseOrderForm_LeaseMoney}"
+            },
+            {
+                "logic": "HouseLeaseOrderForm_StartTime != null",
+                "sql": "#{HouseLeaseOrderForm_StartTime}"
+            },
+            {
+                "logic": "HouseLeaseOrderForm_EndTime != null",
+                "sql": "#{HouseLeaseOrderForm_EndTime}"
+            }
+        ]
+    },
+    "selectHouseLeaseOrderForm": {
+        "type": "select",
+        "sql": "SELECT * FROM HouseLeaseOrderForm",
+        "where": [
+            {
+                "logic": "HouseLeasaeOrderForm_House_ID != null",
+                "sql": "AND #{HouseLeasaeOrderForm_House_ID}"
+            },{
+                "logic": "HouseLeaseOrderForm_Users_ID != null",
+                "sql": "AND #{HouseLeaseOrderForm_Users_ID}"
+            }
+        ]
     }
 }

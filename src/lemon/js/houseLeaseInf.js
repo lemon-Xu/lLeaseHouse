@@ -2,7 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie'
 import { Icon, Row, Col, Button, DatePicker, Input, InputNumber, Select } from 'antd';
 import { houseLeaseInf, floatRight, gridBar, gridBarBorderTop } from '../css/houseLeaseInf.css'
-import { getHouseInfAPI1, postHouseInfAPI1 } from './ajaxAPI1'
+import { getHouseInfAPI1, postHouseInfAPI1, postHouseLeaseOrderForm } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -332,11 +332,19 @@ class HouseInf extends React.Component{
         const usersID = this.props.match.params.usersID
         const params = {
             HouseLeaseOrderForm_House_ID: houseID,
-            HouseLeaseOrderForm_Users_ID: usersID,
+            HouseLeaseOrderForm_Users_ID: Cookies.get('usersID'),
             HouseLeaseOrderForm_LeaseMoney: this.state.money,
             HouseLeaseOrderForm_StartTime: this.state.start,
             HouseLeaseOrderForm_EndTime: this.state.end
         }
+        postHouseLeaseOrderForm(
+            (res)=>{
+                let data = res.data
+                console.log(data)
+            },
+            (err)=>{},
+            params
+        )
         console.log(params)
     }
 
