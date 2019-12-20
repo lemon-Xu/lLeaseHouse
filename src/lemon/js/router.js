@@ -7,7 +7,7 @@ import { Home } from './a';
 import { Detail } from './b';
 import { Login, Register, WrappedRegistrationForm } from './login'
 import { Information } from './yeyu'
-import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput } from './houseLeaseInf'
+import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput, OrderForm } from './houseLeaseInf'
 import { Users_1, UsersFollowPanelArray } from './firia'
 
 import { headerBar, iconSize} from '../css/router.css'
@@ -35,6 +35,10 @@ class BasicRoute extends React.Component {
 
 }
 
+
+
+
+
 class CentreContent extends React.Component{
     constructor(props){
         super(props)
@@ -47,6 +51,7 @@ class CentreContent extends React.Component{
                     <Route exact path="/" component={Home} />
                     <Route exact path="/home" component={HouseBriefInfArray} />
                     <Route exact path="/tenant/reting/:houseID/:usersID" component={HouseInf} />
+                    <Route exact path="/tenant/orderForm" component={OrderForm} />
                     <Route exact path="/renter/renting" component={HouseInfInput} />
                     <Route exact path="/community" component={Information} />
                     <Route exact path="/login" component={Login} />

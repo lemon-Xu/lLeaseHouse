@@ -158,7 +158,7 @@ const getHouseCoverImg = (resFun, errFun, params)=>{
     })
 }
 
-const getHouseLeaseOrderForm = (resFun, errFun, params)=>{
+const getHouseLeaseOrderFormAPI1 = (resFun, errFun, params)=>{
   axios.get('/api1/houseLeaseOrderForm', {
     "params": params
   })
@@ -172,7 +172,7 @@ const getHouseLeaseOrderForm = (resFun, errFun, params)=>{
     })
 }
 
-const postHouseLeaseOrderForm = (resFun, errFun, params)=>{
+const postHouseLeaseOrderFormAPI1 = (resFun, errFun, params)=>{
   axios.post('/api1/houseLeaseOrderForm', {
     "params": params
   })
@@ -186,4 +186,4 @@ const postHouseLeaseOrderForm = (resFun, errFun, params)=>{
     })
 }
 
-export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, putUsersInfAPI1,getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, postHouseInfAPI1, deleteUsersInfAPI1, getHouseLeaseOrderForm, postHouseLeaseOrderForm}
+export { loginAPI1, usersRegisterAPI1, getUsersInfAPI1, putUsersInfAPI1,getUsersFollowInfAPI1, getHouseInfAPI1, postHouseInfImgAPI1, postHouseInfAPI1, deleteUsersInfAPI1, getHouseLeaseOrderFormAPI1, postHouseLeaseOrderFormAPI1}

@@ -303,10 +303,10 @@
         "where": [
             {
                 "logic": "HouseLeasaeOrderForm_House_ID != null",
-                "sql": "AND #{HouseLeasaeOrderForm_House_ID}"
+                "sql": "AND HouseLeaseOrderForm_House_ID = #{HouseLeasaeOrderForm_House_ID}"
             },{
                 "logic": "HouseLeaseOrderForm_Users_ID != null",
-                "sql": "AND #{HouseLeaseOrderForm_Users_ID}"
+                "sql": "AND HouseLeaseOrderForm_Users_ID = #{HouseLeaseOrderForm_Users_ID}"
             }
         ]
     }

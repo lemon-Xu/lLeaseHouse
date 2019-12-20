@@ -1,8 +1,8 @@
 import React from 'react';
 import Cookies from 'js-cookie'
-import { Icon, Row, Col, Button, DatePicker, Input, InputNumber, Select } from 'antd';
+import { Icon, Row, Col, Button, DatePicker, Input, InputNumber, Select, Modal } from 'antd';
 import { houseLeaseInf, floatRight, gridBar, gridBarBorderTop } from '../css/houseLeaseInf.css'
-import { getHouseInfAPI1, postHouseInfAPI1, postHouseLeaseOrderForm } from './ajaxAPI1'
+import { getHouseInfAPI1, postHouseInfAPI1, postHouseLeaseOrderFormAPI1, getHouseLeaseOrderFormAPI1 } from './ajaxAPI1'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
@@ -337,7 +337,7 @@ class HouseInf extends React.Component{
             HouseLeaseOrderForm_StartTime: this.state.start,
             HouseLeaseOrderForm_EndTime: this.state.end
         }
-        postHouseLeaseOrderForm(
+        postHouseLeaseOrderFormAPI1(
             (res)=>{
                 let data = res.data
                 console.log(data)
@@ -433,65 +433,46 @@ class HouseInf extends React.Component{
         let landlordInf = this.props.landlordInf
         let houseAllInf = this.props.houseAllInf
         let dealInf = this.props.dealInf
-        const {money} = {...this.state}
-        console.log(houseID,usersID)
-
-        if(houseID != null && houseID != undefined && usersID != null && usersID != undefined){
-            this.toGetInf(houseID, usersID)
-            console.log({...this.state.inf.landlordInf})
-            console.log({...this.state.inf.houseAllInf})
-            console.log({...this.state.inf.dealInf})
-            return(
-                <div>
-                    <Row>
-                        <LandlordInf {...this.state.inf.landlordInf} />
-                        <GridBarBorder />
-                        <HouseAllInf {...this.state.inf.houseAllInf} />
-                        <GridBarBorder />
-                        <DealInf {...this.state.inf.dealInf} />
-                        <GridBarBorder />
-                        <Row>
-                            <Col span={4}>起始时间:</Col>
-                            <Col span={14}>
-                                <RangePicker onChange={this.onChange} defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
-                            </Col>
-                            <Col span={4}>金额:</Col>
-                            <Col span={2}>{money}</Col>
-                        </Row>
-                        <Col span={24}>
-                        <Button type="primary" block onClick={this.handleClick}>租赁</Button>
-                        </Col>
-                    </Row>
-                </div>
-            )
-        } 
-        else {
-            return(
-                <div>
-                    <Row>
-                        <LandlordInf {...landlordInf} />
-                        <GridBarBorder />
-                        <HouseAllInf {...houseAllInf} />
-                        <GridBarBorder />
-                        <DealInf {...dealInf} />
-                        <GridBarBorder />
-                        <Row>
-                            <Col span={4}>起始时间:</Col>
-                            <Col span={14}>
-                                <RangePicker onChange={this.onChange} defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
-                            </Col>
-                            <Col span={4}>金额:</Col>
-                            <Col span={2}>{money}</Col>
-                        </Row>
-                        <Col span={24}>
-                            <Button type="primary" block onClick={this.handleClick}>租赁</Button>
-                        </Col>
-                    </Row>
-                </div>
+        let a = ''
+        let visible = this.props.visible
+        if(visible== undefined){
+            a = (
+                <Row>
+                <Col span={4}>起始时间:</Col>
+                <Col span={14}>
+                    <RangePicker onChange={this.onChange} defaultValue={[moment(moment().format(dateFormat), dateFormat), moment(moment().format(dateFormat), dateFormat)]} format={dateFormat}/>
+                </Col>
+                <Col span={4}>金额:</Col>
+                <Col span={2}>{money}</Col>
+                <Col span={24}>
+                    <Button type="primary" block onClick={this.handleClick}>租赁</Button>
+                </Col>
+                </Row>
             )
         }
-
-        
+        const {money} = {...this.state}
+        console.log(houseID,usersID)
+        this.toGetInf(houseID, usersID)
+        console.log({...this.state.inf.landlordInf})
+        console.log({...this.state.inf.houseAllInf})
+        console.log({...this.state.inf.dealInf})
+        return(
+            <div>
+                <Row>
+                    <LandlordInf {...this.state.inf.landlordInf} />
+                    <GridBarBorder />
+                    <HouseAllInf {...this.state.inf.houseAllInf} />
+                    <GridBarBorder />
+                    <DealInf {...this.state.inf.dealInf} />
+                    <GridBarBorder />
+                   
+                    {
+                        a
+                    }
+                   
+                </Row>
+            </div>
+        )
     }
 }
 
@@ -858,4 +839,117 @@ class DealInfInput extends React.Component{
     }
 }
 
-export { HouseBriefInf, HouseBriefInfArray, HouseInfInputPanel, HouseInf, HouseInfInput }
+
+class OrderForm extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            houseLeaseOrderForm: new Array(),
+            houseID: -1,
+            modelItem: '',
+            visible: false,
+            title: '房源详细信息',
+        }
+    }
+    handleCancel=()=>{
+        this.setState({
+            visible: false
+        })
+    }
+    handleOk=()=>{
+        this.setState({
+            visible: false
+        })
+    }
+    componentDidMount(){
+        this.getOrderForm()
+    }
+    handleClick=(houseID)=>{
+        console.log(houseID)
+        return ()=>{
+            let usersID = Cookies.get('usersID')
+            console.log(houseID)
+            let match = {
+                params: {
+                    houseID: houseID,
+                }
+            }
+            let visible = true
+            let a = {
+                match: match,
+                visible: visible
+            }
+            let modelItem = <HouseInf {...a}/>
+            this.setState({
+                houseID:houseID,
+                modelItem: modelItem,
+                visible: true
+            })
+        }
+    }
+    getOrderForm(){
+        let usersID = Cookies.get('usersID')
+        console.log(usersID)
+        let params = {
+            HouseLeaseOrderForm_Users_ID: usersID
+        }
+        getHouseLeaseOrderFormAPI1(
+            (res)=>{
+                let data = res.data
+                if(data != '订单查询失败'){
+                    this.setState({houseLeaseOrderForm: res.data})
+                }
+                console.log(data)
+            },
+            ()=>{},
+            params
+        )
+    }
+
+    render(){
+        const {houseLeaseOrderForm, modelItem, title, visible, handleCancel, handleOk} = {...this.state}
+        const kids = new Array()
+        for(let order in houseLeaseOrderForm){
+            let start = moment(houseLeaseOrderForm[order].HouseLeaseOrderForm_StartTime).format('l')
+            let end = moment(houseLeaseOrderForm[order].HouseLeaseOrderForm_EndTime).format('l')
+            let component = (
+                <Row key={order}>
+                    <Col span={24}>
+                        <Col span={4}>起始时间:</Col>
+                        <Col span={8}>{start} / {end}</Col>
+                    </Col>
+                    <Col span={24}>
+                        <Col span={4}>金额:</Col>
+                        <Col span={8}>{houseLeaseOrderForm[order].HouseLeaseOrderForm_LeaseMoney}</Col>
+                    </Col>
+                    <Col span={24}>
+                        <Col span={4} onClick={this.handleClick(houseLeaseOrderForm[order].HouseLeaseOrderForm_House_ID)}><a>房屋详情</a></Col>
+                    </Col>
+                </Row>
+            )
+            kids.push(component)
+        }
+        return(
+        <Row>
+            <Col span={24}>
+             {
+                 kids
+             }
+
+            <Modal
+            title={title}
+            visible={visible}
+            onOk ={this.handleOk}
+            onCancel={this.handleCancel}
+            >
+                {modelItem}
+            </Modal>
+            </Col>
+        </Row>
+        )
+    }
+}
+
+
+
+export { HouseBriefInf, HouseBriefInfArray, HouseInfInputPanel, HouseInf, HouseInfInput, OrderForm }

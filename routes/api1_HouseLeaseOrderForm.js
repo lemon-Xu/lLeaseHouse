@@ -5,15 +5,17 @@ const session = require('../sqlSessionFactoryBuilder.js')
 router.get('',function(req, res, next) {
   console.log('---get')
   console.log(req.query)
-  let params = req.query.params
+  let params = req.query
   let sql = session.getSQL('selectHouseLeaseOrderForm', params)
   console.log(sql)
   session.query(sql, (err, rows, fields)=>{
-    console.log(err)
-    console.log(rows)
-    console.log(fields)
+    if(err){
+      res.json('订单查询错误')
+    }
+    else {
+      res.json(rows)
+    }
   })
-  res.json()
 })
 
 router.post('',function(req, res,) {
