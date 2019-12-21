@@ -309,7 +309,7 @@ class HouseInfInputPanel extends React.Component{
     }
 }
 
-
+// 房屋信息查看组件
 class HouseInf extends React.Component{
     constructor(props){
         super(props)
@@ -414,7 +414,7 @@ class HouseInf extends React.Component{
                 inf.dealInf.cashDeposit = data.House_CashDeposit
                 inf.dealInf.leaseMoney = data.House_LeaseMoney
                 inf.dealInf.leaseType = data.House_Mode
-                inf.dealInf.electronicContract = data.House_ElectronicContractTemplate
+                inf.dealInf.electronicContract = '/public/doc/'+data.House_ElectronicContractTemplate
 
                 this.setState({
                     inf: inf,
@@ -534,7 +534,7 @@ class DealInf extends React.Component{
                     <GridBar><p>交易信息</p></GridBar>
                     <GridBar><p>租赁方式:</p><p>{this.props.leaseMoney}<span>/{this.props.leaseType}</span></p></GridBar>
                     <GridBar><p>押金:</p><p>{this.props.cashDeposit}</p></GridBar>
-                    <GridBar><p>电子合同:</p><p>{this.props.electronicContract}</p></GridBar>
+                    <GridBar><p>电子合同:</p><a href={this.props.electronicContract}>下载</a></GridBar>
                 </Row>
             </div>  
         )
@@ -687,6 +687,7 @@ class HouseAllInfInput extends React.Component{
             coverImg: null,
             province: null,
             district: null,
+            docName: null,
             usersID: Cookies.get('usersID')
         }
         this.changeInfManager = this.changeInfManager.bind(this)
@@ -740,6 +741,8 @@ class HouseAllInfInput extends React.Component{
         }
     }
     getResponse=(res)=>{
+        this.params.docName = res[0].filename
+        console.log(res[0].fileName)
         console.log(res)
     }
     render(){

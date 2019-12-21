@@ -80,10 +80,11 @@ router.post('',function(req, res, next) {
     House_District: houseInf.district,
     House_Address: houseInf.address,
     House_Headline: houseInf.title,
+    House_ElectronicContractTemplate: houseInf.docName,
     House_Mode: dealInf.leaseType,
     House_LeaseMoney: dealInf.leaseMoney,
-    House_ElectronicContractTemplate: dealInf.electronicContract,
-    House_CashDeposit: dealInf.cashDeposit
+    House_CashDeposit: dealInf.cashDeposit,
+   
   }
   
 
