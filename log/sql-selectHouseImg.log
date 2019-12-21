@@ -130,3 +130,7 @@
 {"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":12},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 12"},"date":{"day":20,"month":11,"year":2019,"time":"19-40-11"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":12},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 12"},"date":{"day":20,"month":11,"year":2019,"time":"19-42-5"}},"level":"debug"}
 {"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":12},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 12"},"date":{"day":20,"month":11,"year":2019,"time":"19-42-9"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":12},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 12"},"date":{"day":21,"month":11,"year":2019,"time":"10-43-37"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":13},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 13"},"date":{"day":21,"month":11,"year":2019,"time":"10-43-37"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":14},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 14"},"date":{"day":21,"month":11,"year":2019,"time":"10-43-37"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"selectHouseImg","parameter":{"HouseImg_House_ID":15},"ret":"SELECT * FROM HouseImg  WHERE HouseImg_House_ID = 15"},"date":{"day":21,"month":11,"year":2019,"time":"10-43-37"}},"level":"debug"}

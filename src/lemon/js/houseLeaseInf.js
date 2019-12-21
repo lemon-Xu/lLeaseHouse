@@ -6,7 +6,7 @@ import { getHouseInfAPI1, postHouseInfAPI1, postHouseLeaseOrderFormAPI1, getHous
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
-import { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow } from './public'
+import { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow, WordDragger } from './public'
 
 import { Cascader } from 'antd';
 
@@ -739,6 +739,9 @@ class HouseAllInfInput extends React.Component{
             this.infManager.setInf('num',this.infManager.getInf().num + 1)
         }
     }
+    getResponse=(res)=>{
+        console.log(res)
+    }
     render(){
         return(
             <div>
@@ -777,6 +780,7 @@ class HouseAllInfInput extends React.Component{
                             <Col span={2}></Col>
                         </Row>
                     </Col>
+                    <Col span={24}><WordDragger action="/api1/doc" getResponse={this.getResponse}/></Col>
                 </Row>
             </div> 
         )

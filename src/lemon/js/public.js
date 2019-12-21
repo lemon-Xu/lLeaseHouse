@@ -1,11 +1,11 @@
 import React from 'react';
-import { Icon, Row, Col, Button, DatePicker, Upload, Modal } from 'antd';
+import { Icon, Row, Col, Button, DatePicker, Upload, Modal, message } from 'antd';
 import { gridBar } from '../css/houseLeaseInf.css'
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
 
-console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
+// console.log(moment().format('MMMM Do YYYY, h:mm:ss a'))
 
 const { MonthPicker, RangePicker } = DatePicker;
 
@@ -21,7 +21,7 @@ class GridBar extends React.Component {
     const kids = React.Children.map(this.props.children, child => {
       return child
     })
-    console.log(kids)
+    // console.log(kids)
     for (let index = kids.length; index < 5; index++) {
       kids.push(<p></p>)
     }
@@ -188,7 +188,7 @@ class PicturesWall extends React.Component {
       previewImage: '',
       fileList: []
     }
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   handleCancel = () => this.setState({ previewVisible: false });
@@ -213,19 +213,19 @@ class PicturesWall extends React.Component {
   };
 
   handleChange = ({ fileList }) => {
-    console.log(fileList)
+    // console.log(fileList)
     let responseArray = new Array()
     for(let index in fileList){
       responseArray.push(fileList[index].response)
     }
-    console.log(responseArray)
+    // console.log(responseArray)
     this.getResponse(responseArray)
     this.setState({ fileList })
-};
+  };
 
   beforeUpload(file, fileList) {
-    console.log(file)
-    console.log(fileList)
+    // console.log(file)
+    // console.log(fileList)
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
       message.error('You can only upload JPG/PNG file!');
@@ -238,7 +238,7 @@ class PicturesWall extends React.Component {
   }
 
   onRemove(file){
-    console.log(file)
+    // console.log(file)
     return true
   }
 
@@ -281,15 +281,15 @@ class PicturesWallShow extends React.Component {
       previewImage: '',
       fileList: []
     }
-    console.log(this.state)
+    // console.log(this.state)
   }
 
   render() {
     const { previewVisible, previewImage } = this.state;
     const fileList = new Array()
-    console.log('Wall')
-    console.log(this.props)
-    console.log(this.props.imgArray)
+    // console.log('Wall')
+    // console.log(this.props)
+    // console.log(this.props.imgArray)
     for(let index in this.props.imgArray){
       let img = {
         uid: -index,
@@ -311,5 +311,74 @@ class PicturesWallShow extends React.Component {
   }
 }
 
+const { Dragger } = Upload
 
-export { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow }
+class WordDragger extends React.Component{
+  constructor(props){
+    super(props)
+  }
+  getResponse=(res)=> {
+    if (typeof (this.props.getResponse) == 'function')
+      this.props.getResponse(res)
+    else if (typeof (this.props.getResponse) != null) {
+      throw 'getResponse不是一个函数'
+    }
+  }
+
+  beforeUpload(file, fileList) {
+    const isWordOrDoc = file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    if (!isWordOrDoc) {
+      message.error('You can only upload Word file!');
+    }
+    const isLt10M = file.size / 1024 / 1024 < 10;
+    if (!isLt10M) {
+      message.error('Word must smaller than 10MB!');
+    }
+    return isWordOrDoc && isLt10M;
+  }
+  
+  render(){
+  
+    const props = {
+      name: 'file',
+      multiple: true,
+      action: this.props.action,
+      onChange:(info)=> {
+        const { status } = info.file;
+        const {fileList} = info
+        if (status !== 'uploading') {
+          // console.log(info.file, info.fileList);
+        }
+        if (status === 'done') {
+          message.success(`${info.file.name} file uploaded successfully.`);
+        } else if (status === 'error') {
+          message.error(`${info.file.name} file upload failed.`);
+        }
+        for(let index in fileList){
+          if(fileList[index].status != 'done')
+            return
+        }
+        let responseArray = new Array()
+        for(let index in fileList){
+          responseArray.push(fileList[index].response)
+        }
+        this.getResponse(responseArray)
+      },
+      beforeUpload: this.beforeUpload,
+    };
+    return(
+      <Dragger {...props}>
+        <p className="ant-upload-drag-icon">
+          <Icon type="inbox" />
+        </p>
+        <p className="ant-upload-text">Click or drag file to this area to upload</p>
+        <p className="ant-upload-hint">
+          Support for a single or bulk upload. Strictly prohibit from uploading company data or other
+          band files
+        </p>
+      </Dragger>
+    )
+  }
+}
+
+export { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow, WordDragger }

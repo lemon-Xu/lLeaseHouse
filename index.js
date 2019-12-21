@@ -9,6 +9,7 @@ const houseInf = require('./routes/api1_HouseInf')
 const imgRouter = require('./routes/api1_img')
 const usersFollow = require('./routes/api1_usersFollow')
 const houseLeaseOrderForm = require('./routes/api1_HouseLeaseOrderForm')
+const doc = require('./routes/api1_doc')
 // 中间件
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,4 +31,5 @@ app.use('/api1/img', imgRouter);
 app.use('/api1/houseLeaseInf', houseLeaseInfRouter);
 app.use('/api1/usersFollow', usersFollow);
 app.use('/api1/houseLeaseOrderForm', houseLeaseOrderForm)
+app.use('/api1/doc', doc)
 app.listen(3000);
