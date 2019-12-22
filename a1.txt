@@ -1,2 +1,3 @@
 分支 brach1
 当前是master分支
+这是master分支
