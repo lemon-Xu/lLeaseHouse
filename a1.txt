@@ -1,2 +1,3 @@
 分支 brach1
-当前是branch1分支
+当前是master分支
+这是分支branch2
