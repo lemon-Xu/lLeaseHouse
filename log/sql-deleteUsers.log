@@ -1,1 +1,2 @@
 {"message":{"sqlParser":{"id":"deleteUsers","parameter":{"Users_Name":"管理员4","Users_Account":"x123456"},"ret":" DELETE FROM users WHERE Users_Name = '管理员4'"},"date":{"day":19,"month":11,"year":2019,"time":"17-9-46"}},"level":"debug"}
+{"message":{"sqlParser":{"id":"deleteUsers","parameter":{"Users_Name":"租客1","Users_Account":"x1234"},"ret":" DELETE FROM users WHERE Users_Name = '租客1'"},"date":{"day":23,"month":11,"year":2019,"time":"11-43-3"}},"level":"debug"}

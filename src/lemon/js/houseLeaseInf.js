@@ -8,6 +8,9 @@ import moment from 'moment';
 import 'moment/locale/zh-cn';
 import { Avatar, addressCascaderOptions, PicturesWall, PicturesWallShow, WordDragger } from './public'
 
+
+
+
 import { Cascader } from 'antd';
 
 const {Option}  = Select
@@ -380,6 +383,15 @@ class HouseInf extends React.Component{
             Users_Name: usersName,
             House_IsBan: 0
         }
+
+        // if(Cookies.get('usersID') == undefined){
+        //     alert('请先登陆')
+        //     window.location.href = '#/login'
+        // }
+        // if(Cookies.get('usersRank') != '租客'){
+        //     alert('请使用租客账号登陆')
+        //     window.location.href = '#/login'
+        // }
 
         getHouseInfAPI1(
             (res)=>{

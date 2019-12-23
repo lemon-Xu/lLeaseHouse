@@ -6,9 +6,10 @@ import { Menu, Icon, Row, Col } from 'antd';
 import { Home } from './a';
 import { Detail } from './b';
 import { Login, Register, WrappedRegistrationForm } from './login'
-import { Information } from './yeyu'
 import { HouseBriefInf, HouseBriefInfArray, HouseInf, HouseInfInput, OrderForm } from './houseLeaseInf'
 import { Users_1, UsersFollowPanelArray } from './firia'
+
+import Cookies from 'js-cookie'
 
 import { headerBar, iconSize} from '../css/router.css'
 const { SubMenu } = Menu;
@@ -26,7 +27,6 @@ class BasicRoute extends React.Component {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/detail" component={Detail} />
                     <Route exact path="/login" component={Login} />
-                    <Route exact path="/usersInformation" component={Information} />
                     {console.log('router')}
                 </Switch>
             </HashRouter>
@@ -53,7 +53,6 @@ class CentreContent extends React.Component{
                     <Route exact path="/tenant/reting/:houseID/:usersID" component={HouseInf} />
                     <Route exact path="/tenant/orderForm" component={OrderForm} />
                     <Route exact path="/renter/renting" component={HouseInfInput} />
-                    <Route exact path="/community" component={Information} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={WrappedRegistrationForm} />
                 </Switch>
@@ -170,9 +169,47 @@ class NavigationBar extends React.Component {
 class HeaderBar extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            a: '登入',
+            b: '注册',
+        }
     }
-
+    handleA=()=>{
+        if(this.state.a == '登入'){
+            window.location.href = '#/login'
+            setTimeout(this.render, 8000)
+        }
+    }
+    handleB=()=>{
+        if(this.state.b == '注册'){
+            window.location.href = '#/register'
+        } else if(this.state.b == '登出'){
+            this.handleExit()
+        }
+    }
+    handleExit=()=>{
+        Cookies.remove('usersID')
+        Cookies.remove('usersName')
+        console.log(document.cookie)
+        window.location.href = '#/home'
+    }
     render() {
+        const usersName = Cookies.get('usersName')
+        if(usersName && this.state.a != usersName){
+            this.setState({
+                a: usersName,
+                b: '登出'
+            })
+        } else if(!usersName && this.state.a != '登入'){
+            this.setState({
+                a: '登入',
+                b: '注册',
+            })
+        }
+        console.log('------')
+        console.log(usersName, 'usersName')
+        console.log('------------')
+        const {a, b} = {...this.state}
         return (
             <div className="gutter-example" >
                 <Row>
@@ -197,9 +234,9 @@ class HeaderBar extends React.Component {
                                 </HashRouter>
                             </Col>
                             <Col className="gutter-row" span={4} className={headerBar}>
-                               <a href="#/login">登陆</a>
-                               <span>|</span>
-                               <a href="#/register">注册</a>
+                                <a onClick={this.handleA}>{a}</a>
+                                <span>|</span>
+                                <a onClick={this.handleB}>{b}</a>
                             </Col>
                             <Col className="gutter-row" span={2} className={headerBar}>
                                 2

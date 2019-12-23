@@ -16,14 +16,17 @@ router.get('',function(req, res, next) {
   var sql = session.getSQL('selectUsers', inf)
   console.log(sql)
   session.query(sql, (err, rows, fields)=>{
-    if(rows == null || rows == undefined)
+    if(rows == null || rows == undefined){
+      res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
       res.end('查询错误')
+    }
     else if(rows.length != 0){
-      console.log(rows)
       // console.log(rows)
       res.json(rows)
-    }
+    } else {
+      res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
       res.end('查询错误')
+    }
   })
 
 })

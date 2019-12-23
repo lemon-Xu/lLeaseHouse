@@ -16,7 +16,7 @@ class RightContent extends React.Component{
   render(){
     return(
       <div className={rightContent}>
-        <UsersFollowPanelArray />
+        
       </div>
     )
   }
